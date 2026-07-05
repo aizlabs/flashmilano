@@ -2,7 +2,7 @@
 Content Generator - Orchestrates Two-Step Generation
 
 Coordinates ArticleSynthesizer (Step 1) and LevelAdapter (Step 2)
-to produce level-appropriate German articles.
+to produce level-appropriate Italian articles.
 
 Architecture:
   Step 1: ArticleSynthesizer.synthesize() → Native-level article

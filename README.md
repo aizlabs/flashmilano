@@ -1,14 +1,14 @@
-# BriefBerlin
+# FlashMilano
 
-Private German learner-article simplification pipeline.
+Private Italian learner-article simplification pipeline.
 
-This repository prepares public German A2/B1 learner articles from manually provided source material. Manual source articles are private inputs and must not be committed, logged, uploaded as artifacts, or published as source attribution.
+This repository prepares public Italian A2/B1 learner articles from manually provided source material. Manual source articles are private inputs and must not be committed, logged, uploaded as artifacts, or published as source attribution.
 
 ## Privacy Rules
 
 - Keep manual source articles in ignored local paths such as `private-input/`.
 - Do not commit original source text, base article JSON, logs, metrics, or audio working files.
-- Public posts in `output/_posts/` must contain only generated German learner content.
+- Public posts in `output/_posts/` must contain only generated Italian learner content.
 - GitHub Actions must deploy already-committed public output only; it must not run private/manual generation.
 
 ## Development
@@ -22,7 +22,7 @@ This repository prepares public German A2/B1 learner articles from manually prov
 Put private source articles in ignored local files, then run:
 
 ```bash
-uv run briefberlin-manual private-input/source-1.source.txt private-input/source-2.source.txt
+uv run flashmilano-manual private-input/source-1.source.txt private-input/source-2.source.txt
 ```
 
 Use `--level B1` or repeat `--level A2 --level B1` to override configured levels. Use `--dry-run` to validate without writing a post.
@@ -30,14 +30,14 @@ Use `--level B1` or repeat `--level A2 --level B1` to override configured levels
 To generate A2 and B1 posts with uploaded website audio in one step:
 
 ```bash
-uv run briefberlin-publish-source private-input/source-1.source.txt
+uv run flashmilano-publish-source private-input/source-1.source.txt
 ```
 
 To generate both A2 and B1 posts with local audio artifacts in the same run, enable audio for the
 manual pipeline:
 
 ```bash
-AUDIO_ENABLED=true uv run briefberlin-manual --level A2 --level B1 private-input/source-1.source.txt
+AUDIO_ENABLED=true uv run flashmilano-manual --level A2 --level B1 private-input/source-1.source.txt
 ```
 
 This requires `OPENAI_API_KEY`. Local audio files are written under `output/audio/` and must remain
@@ -49,14 +49,14 @@ the audio delivery variables documented in `docs/website-audio-checklist.md`.
 Run the live glossary-hint eval when tuning glossary prompts or comparing models:
 
 ```bash
-uv run briefberlin-eval-glossary --provider openai --model gpt-5.5 --fixture berlin-heat
+uv run flashmilano-eval-glossary --provider openai --model gpt-5.5 --fixture berlin-heat
 ```
 
 For OpenAI-compatible local models, point the eval at the local `/v1` endpoint and pass the exact
 installed model name:
 
 ```bash
-uv run briefberlin-eval-glossary \
+uv run flashmilano-eval-glossary \
   --provider openai \
   --base-url http://localhost:11434/v1 \
   --model qwen2.5:14b \
@@ -68,7 +68,7 @@ calls the configured LLM and is intended for local prompt/model tuning, not norm
 
 ## Output
 
-The Jekyll site lives under `output/`. Generated posts use CEFR levels `A2` and `B1`, German article text, a `Vokabeln` section when vocabulary exists, and no source attribution.
+The Jekyll site lives under `output/`. Generated posts use CEFR levels `A2` and `B1`, Italian article text, a `Vocabolario` section when vocabulary exists, and no source attribution.
 
 For language forks, see [docs/language-profile-fork-guide.md](docs/language-profile-fork-guide.md).
 

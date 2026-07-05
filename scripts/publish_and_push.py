@@ -18,7 +18,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "sources",
         nargs="+",
-        help="Private input files forwarded to briefberlin-publish-source",
+        help="Private input files forwarded to flashmilano-publish-source",
     )
     parser.add_argument(
         "--remote",
@@ -70,7 +70,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         return 1
 
-    publish_command = ["uv", "run", "briefberlin-publish-source", *args.sources]
+    publish_command = ["uv", "run", "flashmilano-publish-source", *args.sources]
     publish_result = run_command(publish_command, capture_output=False)
     if publish_result.returncode != 0:
         return publish_result.returncode

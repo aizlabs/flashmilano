@@ -31,13 +31,13 @@ Deutschland baut mehr **Windenergie** aus. Das hilft bei der Energiewende.
 
 Neue **Windräder** produzieren sauberen Strom für viele Haushalte.
 
-## Vokabeln
+## Vocabolario
 
 - **Windenergie** - wind energy - Strom aus der Kraft des Windes
 - **Windräder** - wind turbines - große Anlagen, die mit Wind Strom machen
 
 ---
-*Vereinfachter Artikel zu Lernzwecken.*
+*Articolo semplificato per scopo didattico.*
 """
 
 POST_WITH_AUDIO_TEMPLATE = """---
@@ -49,7 +49,7 @@ sources:
 - name: "tagesschau.de"
   url: "https://tagesschau.de"
 audio:
-  url: "https://media.briefberlin.de/articles/2026/03/windenergie-a2/article.mp3"
+  url: "https://media.flashmilano.it/articles/2026/03/windenergie-a2/article.mp3"
   format: "mp3"
   mime_type: "audio/mpeg"
   provider: "openai"
@@ -61,7 +61,7 @@ reading_time: 2
 Deutschland baut mehr **Windenergie** aus. Das hilft bei der Energiewende.
 
 ---
-*Vereinfachter Artikel zu Lernzwecken.*
+*Articolo semplificato per scopo didattico.*
 """
 
 
@@ -85,10 +85,10 @@ def write_post(tmp_path: Path, name: str, content: str = POST_TEMPLATE) -> Path:
     return post_path
 
 
-def write_site_config(tmp_path: Path, *, url: str = "https://briefberlin.de", baseurl: str = "") -> Path:
+def write_site_config(tmp_path: Path, *, url: str = "https://flashmilano.it", baseurl: str = "") -> Path:
     config_path = tmp_path / "_config.yml"
     config_path.write_text(
-        f'title: "BriefBerlin"\nurl: "{url}"\nbaseurl: "{baseurl}"\n',
+        f'title: "FlashMilano"\nurl: "{url}"\nbaseurl: "{baseurl}"\n',
         encoding="utf-8",
     )
     return config_path
@@ -117,7 +117,7 @@ def test_parse_jekyll_post_accepts_configured_glossary_heading(tmp_path):
     post_path = write_post(
         tmp_path,
         "2026-03-17-040915-windenergie-a2.md",
-        content=POST_TEMPLATE.replace("## Vokabeln", "## Vocabolario"),
+        content=POST_TEMPLATE.replace("## Vocabolario", "## Vocabolario"),
     )
 
     post = parse_jekyll_post(post_path, glossary_headings=["Vocabolario", "Vokabeln"])
@@ -148,12 +148,12 @@ Deutschland baut mehr <button type="button" class="article-term" data-term-id="t
 
 <script type="application/json" class="article-glossary-data">[{"id":"term-1","term":"Windenergie"}]</script>
 
-## Vokabeln
+## Vocabolario
 
 - **Windenergie** - wind energy - Strom aus der Kraft des Windes
 
 ---
-*Vereinfachter Artikel zu Lernzwecken.*
+*Articolo semplificato per scopo didattico.*
 """,
     )
 
@@ -173,18 +173,18 @@ def test_parse_jekyll_post_extracts_audio_frontmatter(tmp_path):
 
     post = parse_jekyll_post(post_path)
 
-    assert post.audio_url == "https://media.briefberlin.de/articles/2026/03/windenergie-a2/article.mp3"
+    assert post.audio_url == "https://media.flashmilano.it/articles/2026/03/windenergie-a2/article.mp3"
     assert post.audio_mime_type == "audio/mpeg"
     assert post.audio_duration_seconds == 105
 
 
 def test_build_article_url_uses_timestamped_slug_and_site_config(tmp_path):
-    config_path = write_site_config(tmp_path, url="https://example.com", baseurl="/briefberlin")
+    config_path = write_site_config(tmp_path, url="https://example.com", baseurl="/flashmilano")
     post_path = tmp_path / "2026-03-17-040915-windenergie-a2.md"
 
     article_url = build_article_url(post_path, config_path)
 
-    assert article_url == "https://example.com/briefberlin/articles/040915-windenergie-a2/"
+    assert article_url == "https://example.com/flashmilano/articles/040915-windenergie-a2/"
 
 
 def test_format_telegram_message_converts_markdown_and_omits_source_footer():
@@ -206,7 +206,7 @@ def test_format_telegram_message_converts_markdown_and_omits_source_footer():
     assert "<i>A2 • 2 min</i>" in message
     assert "<b>Windenergie</b>" in message
     assert "<b>Windräder</b>" in message
-    assert "<b>Vokabeln</b>" in message
+    assert "<b>Vocabolario</b>" in message
     assert "• <b>Windenergie</b> - wind energy - Strom aus der Kraft des Windes" in message
     assert "**Windenergie**" not in message
     assert "Fuentes" not in message
@@ -285,8 +285,8 @@ def test_publish_posts_sends_messages_in_filename_order(tmp_path):
 
     assert len(sent_messages) == 2
     assert sent_messages[0].startswith("<b>Deutschland baut mehr Windenergie aus</b>")
-    assert 'href="https://briefberlin.de/articles/040915-primero-a2/"' in sent_messages[0]
-    assert 'href="https://briefberlin.de/articles/184500-segundo-b1/"' in sent_messages[1]
+    assert 'href="https://flashmilano.it/articles/040915-primero-a2/"' in sent_messages[0]
+    assert 'href="https://flashmilano.it/articles/184500-segundo-b1/"' in sent_messages[1]
 
 
 def test_publish_posts_sends_audio_when_post_has_audio_url(tmp_path):
@@ -325,15 +325,15 @@ def test_publish_posts_sends_audio_when_post_has_audio_url(tmp_path):
     assert len(sent_audio) == 1
     post, article_url = sent_audio[0]
     assert post.title == "Deutschland baut mehr Windenergie aus"
-    assert post.audio_url == "https://media.briefberlin.de/articles/2026/03/windenergie-a2/article.mp3"
-    assert article_url == "https://briefberlin.de/articles/040915-windenergie-a2/"
+    assert post.audio_url == "https://media.flashmilano.it/articles/2026/03/windenergie-a2/article.mp3"
+    assert article_url == "https://flashmilano.it/articles/040915-windenergie-a2/"
 
 
 def test_main_uses_language_config_for_glossary_heading(monkeypatch, base_config, tmp_path):
     post_path = write_post(
         tmp_path,
         "2026-03-17-040915-windenergie-a2.md",
-        content=POST_TEMPLATE.replace("## Vokabeln", "## Vocabolario"),
+        content=POST_TEMPLATE.replace("## Vocabolario", "## Vocabolario"),
     )
     site_config = write_site_config(tmp_path)
     captured: dict[str, object] = {}
@@ -379,7 +379,7 @@ def test_send_telegram_audio_uses_audio_metadata_and_web_button():
         reading_time=2,
         paragraphs=[],
         vocabulary_lines=[],
-        audio_url="https://media.briefberlin.de/articles/2026/03/windenergie-a2/article.mp3",
+        audio_url="https://media.flashmilano.it/articles/2026/03/windenergie-a2/article.mp3",
         audio_mime_type="audio/mpeg",
         audio_duration_seconds=105,
     )
@@ -400,9 +400,9 @@ def test_send_telegram_audio_uses_audio_metadata_and_web_button():
     assert captured_payloads == [
         {
             "chat_id": "channel-id",
-            "audio": "https://media.briefberlin.de/articles/2026/03/windenergie-a2/article.mp3",
+            "audio": "https://media.flashmilano.it/articles/2026/03/windenergie-a2/article.mp3",
             "title": "Deutschland baut mehr Windenergie aus",
-            "performer": "BriefBerlin • A2",
+            "performer": "FlashMilano • A2",
             "caption": "<b>Deutschland baut mehr Windenergie aus</b>\n<i>A2 • 2 min</i>",
             "parse_mode": "HTML",
             "reply_markup": {

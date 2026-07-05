@@ -1,6 +1,6 @@
 """Language profile registry for built-in pipeline defaults."""
 
-from scripts.language_profiles.german import (
+from scripts.language_profiles.italian import (
     DEFAULT_GLOSSARY_HEADING,
     DEFAULT_GLOSSARY_RULES,
     DEFAULT_LEARNER_NATIVE_LANGUAGE,

@@ -1,7 +1,7 @@
 [project]
-name = "briefberlin"
+name = "flashmilano"
 version = "0.1.0"
-description = "German learner article simplification pipeline"
+description = "Italian learner article simplification pipeline"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -20,7 +20,7 @@ dependencies = [
     "pyyaml>=6.0",
     "python-dotenv>=1.0.0",
     "langdetect>=1.0.9",
-    "de-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/de_core_news_sm-3.8.0/de_core_news_sm-3.8.0-py3-none-any.whl",
+    "it-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/it_core_news_sm-3.8.0/it_core_news_sm-3.8.0-py3-none-any.whl",
     "boto3>=1.42.72",
 ]
 
@@ -35,11 +35,11 @@ dev = [
 ]
 
 [project.scripts]
-briefberlin-manual = "scripts.manual_pipeline:main"
-briefberlin-audio-post = "scripts.post_audio:main"
-briefberlin-publish-source = "scripts.publish_source:main"
-briefberlin-publish-and-push = "scripts.publish_and_push:main"
-briefberlin-eval-glossary = "scripts.eval_glossary_llm:main"
+flashmilano-manual = "scripts.manual_pipeline:main"
+flashmilano-audio-post = "scripts.post_audio:main"
+flashmilano-publish-source = "scripts.publish_source:main"
+flashmilano-publish-and-push = "scripts.publish_and_push:main"
+flashmilano-eval-glossary = "scripts.eval_glossary_llm:main"
 
 [build-system]
 requires = ["hatchling"]

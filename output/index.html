@@ -1,45 +1,45 @@
 ---
 layout: home
-title: "BriefBerlin"
-excerpt: "Simplified German articles for A2 and B1 learners."
+title: "FlashMilano"
+excerpt: "Articoli semplificati in italiano per i livelli A2 e B1."
 ---
 
 <section class="home-overview" aria-labelledby="home-overview-title">
   <div class="home-overview__intro">
-    <h1 id="home-overview-title">Deutsch lernen mit echten Nachrichten</h1>
-    <p>Aktuelle Artikel, passend zu deinem Niveau.</p>
+    <h1 id="home-overview-title">Impara l'italiano con notizie vere</h1>
+    <p>Articoli attuali, adatti al tuo livello.</p>
   </div>
 
   <div class="home-overview__learning">
-    <div class="level-info" aria-label="Wähle ein Niveau">
-      <div class="level-box" data-level="A2" role="button" tabindex="0" aria-label="A2-Artikel für Anfänger filtern">
+    <div class="level-info" aria-label="Scegli un livello">
+      <div class="level-box" data-level="A2" role="button" tabindex="0" aria-label="Filtra gli articoli A2 per principianti">
         <span class="level-badge level-a2">A2</span>
         <span class="level-box__text">
-          <strong>Anfänger</strong>
-          <span>Kurze Sätze, häufige Wörter und klare Struktur.</span>
+          <strong>Principianti</strong>
+          <span>Frasi corte, parole frequenti e struttura chiara.</span>
         </span>
       </div>
-      <div class="level-box" data-level="B1" role="button" tabindex="0" aria-label="B1-Artikel für Mittelstufe filtern">
+      <div class="level-box" data-level="B1" role="button" tabindex="0" aria-label="Filtra gli articoli B1 per livello intermedio">
         <span class="level-badge level-b1">B1</span>
         <span class="level-box__text">
-          <strong>Mittelstufe</strong>
-          <span>Mehr Kontext, gemischte Zeiten und längere Texte.</span>
+          <strong>Livello intermedio</strong>
+          <span>Più contesto, tempi misti e testi più lunghi.</span>
         </span>
       </div>
     </div>
 
-    <a class="welcome-link" href="{{ '/articles/willkommen-bei-briefberlin/' | relative_url }}">
-      <span>Neu bei BriefBerlin?</span>
-      <strong>Willkommen lesen</strong>
+    <a class="welcome-link" href="{{ '/articles/benvenuti-in-flashmilano/' | relative_url }}">
+      <span>Nuovo su FlashMilano?</span>
+      <strong>Leggi il benvenuto</strong>
       <i class="fas fa-arrow-right" aria-hidden="true"></i>
     </a>
   </div>
 </section>
 
 <div class="filter-section">
-  <h2>Neueste Artikel</h2>
+  <h2>Articoli recenti</h2>
   <div class="filter-buttons">
-    <button class="filter-btn active" data-level="all">Alle</button>
+    <button class="filter-btn active" data-level="all">Tutti</button>
     <button class="filter-btn" data-level="A2">A2</button>
     <button class="filter-btn" data-level="B1">B1</button>
   </div>
@@ -73,7 +73,7 @@ excerpt: "Simplified German articles for A2 and B1 learners."
         {% endif %}
       </div>
 
-      <span class="read-more">Artikel lesen →</span>
+      <span class="read-more">Leggi l'articolo →</span>
     </a>
   {% endfor %}
 </div>
@@ -81,13 +81,13 @@ excerpt: "Simplified German articles for A2 and B1 learners."
 {% if paginator.total_pages > 1 %}
 <nav class="pagination">
   {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-btn">← Zurück</a>
+    <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-btn">← Precedente</a>
   {% endif %}
 
-  <span class="pagination-info">Seite {{ paginator.page }} von {{ paginator.total_pages }}</span>
+  <span class="pagination-info">Pagina {{ paginator.page }} di {{ paginator.total_pages }}</span>
 
   {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | relative_url }}" class="pagination-btn">Weiter →</a>
+    <a href="{{ paginator.next_page_path | relative_url }}" class="pagination-btn">Successiva →</a>
   {% endif %}
 </nav>
 {% endif %}
@@ -100,8 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const levelExplainer = document.querySelector('.level-explainer');
   const filterSection = document.querySelector('.filter-section');
   const levelDescriptions = {
-    A2: 'A2: kurze Texte mit einfachem Satzbau und häufigen Wörtern.',
-    B1: 'B1: längere Texte mit mehr Kontext, Nebensätzen und erweitertem Wortschatz.'
+    A2: 'A2: testi brevi con frasi semplici e parole frequenti.',
+    B1: 'B1: testi più lunghi con più contesto, frasi subordinate e vocabolario più ampio.'
   };
 
   const applyFilter = level => {

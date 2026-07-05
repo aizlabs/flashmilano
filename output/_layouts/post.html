@@ -36,7 +36,7 @@ layout: default
 
     <section class="page__content" itemprop="text">
       {% if page.audio and page.audio.url %}
-        <section class="article-audio" aria-label="Artikel-Audio">
+        <section class="article-audio" aria-label="Audio dell articolo">
           <audio controls preload="metadata" class="article-audio__native">
             <source src="{{ page.audio.url }}" type="{{ page.audio.mime_type | default: 'audio/mpeg' }}">
             Dein Browser unterstützt die Audiowiedergabe nicht.
@@ -51,20 +51,20 @@ layout: default
             </div>
 
             <div class="article-audio__transport" aria-label="Audio-Steuerung">
-              <button class="article-audio__button article-audio__skip-back" type="button" aria-label="10 Sekunden zurück">
+              <button class="article-audio__button article-audio__skip-back" type="button" aria-label="10 secondi indietro">
                 <i class="fas fa-rotate-left" aria-hidden="true"></i>
                 <span>10</span>
               </button>
-              <button class="article-audio__button article-audio__play" type="button" aria-label="Abspielen">
+              <button class="article-audio__button article-audio__play" type="button" aria-label="Riproduci">
                 <i class="fas fa-play" aria-hidden="true"></i>
               </button>
-              <button class="article-audio__button article-audio__skip-forward" type="button" aria-label="10 Sekunden vor">
+              <button class="article-audio__button article-audio__skip-forward" type="button" aria-label="10 secondi avanti">
                 <i class="fas fa-rotate-right" aria-hidden="true"></i>
                 <span>10</span>
               </button>
             </div>
 
-            <div class="article-audio__speed" aria-label="Wiedergabegeschwindigkeit">
+            <div class="article-audio__speed" aria-label="Velocità di riproduzione">
               <button type="button" data-speed="0.5" aria-label="Geschwindigkeit 0.5x">0.5x</button>
               <button type="button" data-speed="0.75" aria-label="Geschwindigkeit 0.75x">0.75x</button>
               <button class="is-active" type="button" data-speed="1" aria-label="Normale Geschwindigkeit">1x</button>

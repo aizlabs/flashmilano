@@ -9,8 +9,8 @@
 
 ## Build, Test, and Development Commands
 - Install: `uv sync` (pulls deps + SpaCy model). Configure secrets via `.env` (copy from `.env.example`).
-- Manual generation: `uv run briefberlin-manual private-input/source-1.source.txt`.
-- Validate without writing: `uv run briefberlin-manual --dry-run private-input/source-1.source.txt`.
+- Manual generation: `uv run flashmilano-manual private-input/source-1.source.txt`.
+- Validate without writing: `uv run flashmilano-manual --dry-run private-input/source-1.source.txt`.
 - Docker: `make build` builds the image; `docker compose run generator ...` runs commands inside the container.
 - Tests: `uv run pytest` (or `docker compose run generator python -m pytest`).
 - Lint: `uv run ruff check` before pushing.

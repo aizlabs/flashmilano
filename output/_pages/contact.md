@@ -1,10 +1,10 @@
 ---
 permalink: /contact/
-title: "Contact"
-excerpt: "Contact BriefBerlin"
+title: "Contatti"
+excerpt: "Contatta FlashMilano"
 layout: single
 ---
 
-Operational contact details are not published yet.
+I dettagli di contatto operativi non sono ancora pubblicati.
 
-For now, track content corrections, takedown requests, and project issues privately in the repository workflow.
+Per ora, segnalazioni di correzioni, richieste di rimozione e problemi del progetto vanno gestiti in privato attraverso il flusso di lavoro del repository.

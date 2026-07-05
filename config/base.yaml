@@ -1,4 +1,4 @@
-# BriefBerlin - Base Configuration
+# FlashMilano - Base Configuration
 
 environment: base
 
@@ -60,17 +60,16 @@ glossary:
   debug_dump: false
 
 language:
-  target_language: German
-  target_language_code: de
-  locale: de-DE
+  target_language: Italian
+  target_language_code: it
+  locale: it-IT
   learner_native_language: English
-  spacy_model: de_core_news_sm
-  glossary_heading: Vokabeln
-  legacy_glossary_headings:
-    - Vokabeln
-  prompt_pack: german
-  glossary_rules: german
-  site_name: BriefBerlin
+  spacy_model: it_core_news_sm
+  glossary_heading: Vocabolario
+  legacy_glossary_headings: []
+  prompt_pack: italian
+  glossary_rules: italian
+  site_name: FlashMilano
 
 # Audio preparation (website first; Telegram and podcast later)
 audio:
@@ -107,7 +106,7 @@ output:
 
 # Logging (overridden per environment)
 logging:
-  name: briefberlin
+  name: flashmilano
   level: INFO
   format: json
   file: output/logs/app.log
@@ -124,7 +123,7 @@ alerts:
   email: your@email.com           # Recipient for alert emails (can be overridden via ALERT_EMAIL)
   cooldown_hours: 6               # Cooldown window to avoid duplicate alerts
   email_config:
-    from: bot@briefberlin.de     # Sender address used for email alerts
+    from: bot@flashmilano.it     # Sender address used for email alerts
     smtp:
       host: smtp.gmail.com        # SMTP host required for outbound mail
       port: 587                   # SMTP port

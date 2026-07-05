@@ -1,6 +1,6 @@
-# A2 German CEFR Guidelines
+# A2 Italian CEFR Guidelines
 
-BriefBerlin A2 articles are for learners who can understand simple everyday German and want to read real topics in controlled language.
+FlashMilano A2 articles are for learners who can understand simple everyday Italian and want to read real topics in controlled language.
 
 ## Reader Profile
 

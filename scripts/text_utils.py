@@ -195,7 +195,7 @@ def ensure_vocabulary_bolded(content: str, vocabulary: Dict[str, str]) -> str:
 
     Args:
         content: Article body (may already contain some **bold** terms).
-        vocabulary: Glossary dict (keys = German terms to bold).
+        vocabulary: Glossary dict (keys = Italian terms to bold).
 
     Returns:
         Content with every vocabulary term wrapped in ** when not already bolded.

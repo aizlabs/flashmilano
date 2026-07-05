@@ -1,7 +1,7 @@
 .PHONY: help build test-discovery test-fetcher clean logs
 
 help:
-	@echo "BriefBerlin - Development Commands"
+	@echo "FlashMilano - Development Commands"
 	@echo ""
 	@echo "  make build           - Build Docker container"
 	@echo "  make test-discovery  - Test topic discovery"
@@ -9,7 +9,7 @@ help:
 	@echo "  make logs            - Tail local logs"
 	@echo "  make clean           - Clean generated files"
 	@echo ""
-	@echo "Manual generation: uv run briefberlin-manual private-input/source-1.source.txt"
+	@echo "Manual generation: uv run flashmilano-manual private-input/source-1.source.txt"
 	@echo ""
 
 build:

@@ -21,7 +21,7 @@ def test_publisher_formats_sources_with_links(base_config, mock_logger, sample_a
     assert 'elpais.com' not in markdown
     assert 'https://elpais.com' not in markdown
     assert "*Fuentes:" not in markdown
-    assert "*Vereinfachter Artikel zu Lernzwecken.*" in markdown
+    assert "*Articolo semplificato per scopo didattico.*" in markdown
 
 
 def test_publisher_falls_back_to_plain_text_when_url_missing(base_config, mock_logger, sample_a2_article, tmp_path):
@@ -77,7 +77,7 @@ def test_publisher_handles_empty_sources_gracefully(base_config, mock_logger, sa
 
     assert 'sources: []' in markdown
     assert '*Fuentes:' not in markdown
-    assert '*Vereinfachter Artikel zu Lernzwecken.*' in markdown
+    assert '*Articolo semplificato per scopo didattico.*' in markdown
 
 
 def test_publisher_handles_legacy_string_sources(
@@ -242,7 +242,7 @@ def test_publisher_embeds_translation_hints_and_clickable_article_terms(
 
     assert (
         '<script type="application/json" class="article-glossary-data" '
-        'data-glossary-heading="Vokabeln" data-glossary-locale="de-DE">'
+        'data-glossary-heading="Vocabolario" data-glossary-locale="it-IT">'
     ) in markdown
     assert '"term":"Stromnetze"' in markdown
     assert '"defaultGlossary":true' in markdown
@@ -305,7 +305,7 @@ def test_publisher_includes_audio_frontmatter_when_public_url_exists(
     article = sample_a2_article.model_copy(
         update={
             'audio': AudioAsset(
-                url='https://media.briefberlin.de/articles/2024/01/test/article.mp3',
+                url='https://media.flashmilano.it/articles/2024/01/test/article.mp3',
                 provider='elevenlabs',
                 voice='newsreader',
                 format='mp3',
@@ -319,7 +319,7 @@ def test_publisher_includes_audio_frontmatter_when_public_url_exists(
     markdown = publisher._generate_markdown(article, datetime(2024, 1, 1, 12, 0, 0))
 
     assert 'audio:' in markdown
-    assert 'url: "https://media.briefberlin.de/articles/2024/01/test/article.mp3"' in markdown
+    assert 'url: "https://media.flashmilano.it/articles/2024/01/test/article.mp3"' in markdown
     assert 'provider: "elevenlabs"' in markdown
     assert 'voice: "newsreader"' in markdown
 
@@ -336,7 +336,7 @@ def test_publisher_omits_audio_frontmatter_when_website_audio_disabled(
     article = sample_a2_article.model_copy(
         update={
             'audio': AudioAsset(
-                url='https://media.briefberlin.de/articles/2024/01/test/article.mp3',
+                url='https://media.flashmilano.it/articles/2024/01/test/article.mp3',
                 provider='elevenlabs',
                 voice='newsreader',
                 format='mp3',
@@ -350,4 +350,4 @@ def test_publisher_omits_audio_frontmatter_when_website_audio_disabled(
     markdown = publisher._generate_markdown(article, datetime(2024, 1, 1, 12, 0, 0))
 
     assert 'audio: null' in markdown
-    assert 'https://media.briefberlin.de/articles/2024/01/test/article.mp3' not in markdown
+    assert 'https://media.flashmilano.it/articles/2024/01/test/article.mp3' not in markdown

@@ -70,7 +70,7 @@ def test_audio_pipeline_writes_manifest_and_script_when_enabled(
     assert script_path.exists()
     assert manifest_path.exists()
     assert audio_path.exists()
-    assert "Ende des Artikels." in script_path.read_text(encoding="utf-8")
+    assert "Fine dell'articolo." in script_path.read_text(encoding="utf-8")
     mock_tts_client.audio.speech.create.assert_called_once()
     info_messages = [call.args[0] for call in mock_logger.info.call_args_list]
     assert (
@@ -90,8 +90,8 @@ def test_audio_pipeline_uploads_and_sets_public_url_when_upload_enabled(
     base_config.audio.voice = "alloy"
     base_config.audio.upload_enabled = True
     base_config.audio.output_path = str(tmp_path / "audio")
-    base_config.audio.public_base_url = "https://media.briefberlin.de"
-    base_config.audio.s3.bucket = "briefberlin-audio-prod"
+    base_config.audio.public_base_url = "https://media.flashmilano.it"
+    base_config.audio.s3.bucket = "flashmilano-audio-prod"
 
     mock_tts_client = MagicMock()
     mock_tts_client.audio.speech.create.return_value = DummySpeechResponse()
@@ -112,7 +112,7 @@ def test_audio_pipeline_uploads_and_sets_public_url_when_upload_enabled(
     assert prepared_article.audio is not None
     assert (
         prepared_article.audio.url
-        == "https://media.briefberlin.de/articles/2024/01/20240102-120000-deutschland-baut-mehr-windenergie-aus-a2/article.mp3"
+        == "https://media.flashmilano.it/articles/2024/01/20240102-120000-deutschland-baut-mehr-windenergie-aus-a2/article.mp3"
     )
     assert prepared_article.audio.storage_key == (
         "articles/2024/01/20240102-120000-deutschland-baut-mehr-windenergie-aus-a2/article.mp3"
@@ -166,7 +166,7 @@ def test_audio_pipeline_raises_when_upload_enabled_without_bucket(
     base_config.audio.voice = "alloy"
     base_config.audio.upload_enabled = True
     base_config.audio.output_path = str(tmp_path / "audio")
-    base_config.audio.public_base_url = "https://media.briefberlin.de"
+    base_config.audio.public_base_url = "https://media.flashmilano.it"
 
     mock_tts_client = MagicMock()
     mock_tts_client.audio.speech.create.return_value = DummySpeechResponse()
@@ -248,7 +248,7 @@ def test_build_speech_script_includes_english_only_glossary_items(sample_a2_arti
     script = build_speech_script(article_with_english_only_glossary, include_vocabulary=True)
 
     assert script.includes_vocabulary is True
-    assert "Vokabeln. Sturmschäden heißt auf Englisch storm damage." in script.narration
+    assert "Vocabolario. Sturmschäden in inglese significa storm damage." in script.narration
 
 
 def test_build_speech_script_uses_configured_glossary_heading(sample_a2_article):
@@ -270,5 +270,5 @@ def test_build_speech_script_uses_configured_glossary_heading(sample_a2_article)
         glossary_heading="Vocabolario",
     )
 
-    assert "Vocabolario. Sturmschäden heißt auf Englisch storm damage." in script.narration
+    assert "Vocabolario. Sturmschäden in inglese significa storm damage." in script.narration
     assert "Vokabeln." not in script.narration

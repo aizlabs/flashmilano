@@ -537,5 +537,5 @@ reading_time: {article.reading_time}
         return """
 
 ---
-*Vereinfachter Artikel zu Lernzwecken.*
+*Articolo semplificato per scopo didattico.*
 """

@@ -71,7 +71,7 @@ class AlertManager:
             self.logger.warning("Alert delivery is disabled; not sending email.")
             return
 
-        subject = f"🚨 CRITICAL: BriefBerlin - {message}"
+        subject = f"🚨 CRITICAL: FlashMilano - {message}"
         body = self._format_alert_body(message, context, "CRITICAL")
         self._send_email(subject=subject, body=body, priority="high")
         self._send_telegram_alert(subject=subject, body=body)
@@ -104,7 +104,7 @@ class AlertManager:
             + "\n\nTraceback:\n"
             + traceback_text
         )
-        subject = f"❌ ERROR: BriefBerlin - {message} ({environment}) - {run_id}"
+        subject = f"❌ ERROR: FlashMilano - {message} ({environment}) - {run_id}"
         self._send_email(subject=subject, body=body, priority="high")
         self._send_telegram_alert(subject=subject, body=body)
 
@@ -120,7 +120,7 @@ class AlertManager:
         if self._check_cooldown(alert_key):
             return
 
-        subject = f"❌ ERROR: BriefBerlin - {message}"
+        subject = f"❌ ERROR: FlashMilano - {message}"
         body = self._format_alert_body(message, context, "ERROR")
         self._send_email(subject=subject, body=body)
         self._send_telegram_alert(subject=subject, body=body)
@@ -159,7 +159,7 @@ class AlertManager:
 
         levels_str = ", ".join(sorted({level for _title, level in published_articles}))
         body_lines = [
-            "BriefBerlin – generation success",
+            "FlashMilano – generation success",
             "",
             f"Run: {run_id} | Duration: {duration_seconds:.0f}s",
             f"Articles: {published} published (from {attempted} attempts, {rejected} rejected, {regenerations} regenerations)",
@@ -171,16 +171,16 @@ class AlertManager:
             body_lines.append(f"  - [{level}] {title}")
         body_lines.append("")
         body_lines.append("---")
-        body_lines.append("BriefBerlin Alert System")
+        body_lines.append("FlashMilano Alert System")
         body = "\n".join(body_lines)
 
-        subject = f"BriefBerlin – generation success – {published} article(s)"
+        subject = f"FlashMilano – generation success – {published} article(s)"
         self._send_email(subject=subject, body=body, priority="normal")
         self._send_telegram_alert(subject=subject, body=body)
 
     def _format_alert_body(self, message: str, context: Optional[Dict[str, Any]], severity: str) -> str:
         body = (
-            "BriefBerlin Alert\n\n"
+            "FlashMilano Alert\n\n"
             f"Severity: {severity}\n"
             f"Time: {datetime.utcnow().isoformat()}Z\n"
             f"Message: {message}\n\n"
@@ -191,7 +191,7 @@ class AlertManager:
             for key, value in context.items():
                 body += f"  {key}: {value}\n"
 
-        body += "\n---\nBriefBerlin Alert System"
+        body += "\n---\nFlashMilano Alert System"
         return body
 
     def _send_email(self, subject: str, body: str, priority: str = "normal") -> None:

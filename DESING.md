@@ -1,10 +1,10 @@
-# BriefBerlin - System Design
+# FlashMilano - System Design
 
-This document describes the current BriefBerlin operating model.
+This document describes the current FlashMilano operating model.
 
 ## Purpose
 
-BriefBerlin publishes simplified German articles for A2 and B1 learners. The system is optimized for a private manual-source workflow: source material is supplied locally, transformed into learner-friendly German, reviewed, and then committed as public Jekyll output.
+FlashMilano publishes simplified Italian articles for A2 and B1 learners. The system is optimized for a private manual-source workflow: source material is supplied locally, transformed into learner-friendly Italian, reviewed, and then committed as public Jekyll output.
 
 ## Non-Negotiable Privacy Rule
 
@@ -33,7 +33,7 @@ private source text
 ## Active CLI
 
 ```bash
-uv run briefberlin-manual private-input/source-1.source.txt
+uv run flashmilano-manual private-input/source-1.source.txt
 ```
 
 Options:
@@ -56,7 +56,7 @@ Public posts are Markdown files under `output/_posts/` with front matter for:
 - `audio`
 - `reading_time`
 
-Generated posts should contain German learner text, optional `Vokabeln`, and no private source attribution.
+Generated posts should contain Italian learner text, optional `Vocabolario`, and no private source attribution.
 
 ## CEFR Targets
 
@@ -98,7 +98,7 @@ The public site is a Jekyll project in `output/`.
 Before deployment, verify:
 
 - `output/_config.yml` has production `url`, `baseurl`, and `repository`.
-- Public pages use German/BriefBerlin copy.
+- Public pages use Italian/FlashMilano copy.
 - Privacy policy reflects active analytics, ads, contact forms, and cookies.
 - `output/_posts/` contains only approved public articles.
 

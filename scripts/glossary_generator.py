@@ -15,6 +15,7 @@ from typing import Any, Dict, List
 
 import spacy
 from pydantic import BaseModel, ConfigDict, Field
+from spacy.lang.it.stop_words import STOP_WORDS as _SPACY_ITALIAN_STOP_WORDS
 
 from scripts import prompts
 from scripts.config import AppConfig
@@ -144,67 +145,49 @@ NAME_CONNECTOR_TOKENS = {
     "y",
 }
 COMMON_PLACE_TERMS = {
-    "berlin",
-    "brandenburg",
     "america latina",
     "china",
-    "deutschland",
-    "estados unidos",
+    "cina",
     "europa",
-    "frankreich",
+    "francia",
+    "germania",
+    "inghilterra",
     "iran",
     "israel",
+    "israele",
+    "italia",
+    "milano",
+    "napoli",
+    "parigi",
     "paris",
+    "roma",
     "rusia",
+    "russia",
+    "spagna",
+    "stati uniti",
     "teheran",
+    "torino",
     "ucrania",
     "ukraine",
     "usa",
+    "venezia",
     "washington",
     "yemen",
 }
 COMMON_PERSON_TERMS = {
     "donald trump",
 }
+def _fold_stopword(text: str) -> str:
+    """Fold a stopword the same way glossary tokens are folded (strip accents, lowercase)."""
+    normalized = unicodedata.normalize("NFKD", text)
+    without_accents = "".join(ch for ch in normalized if not unicodedata.combining(ch))
+    return without_accents.casefold()
+
+
+# Sourced from spaCy's maintained Italian stop-word list (language data; no model load
+# required) and folded to match how glossary tokens are normalized before comparison.
 TERM_STOPWORDS = {
-    "a",
-    "al",
-    "am",
-    "an",
-    "auf",
-    "aus",
-    "bei",
-    "con",
-    "das",
-    "de",
-    "dem",
-    "den",
-    "der",
-    "del",
-    "des",
-    "die",
-    "el",
-    "en",
-    "für",
-    "im",
-    "in",
-    "la",
-    "las",
-    "lo",
-    "los",
-    "mit",
-    "para",
-    "por",
-    "und",
-    "su",
-    "sus",
-    "un",
-    "una",
-    "unos",
-    "unas",
-    "von",
-    "zu",
-    "y",
+    _fold_stopword(word) for word in _SPACY_ITALIAN_STOP_WORDS if word.isalpha()
 }
 ENGLISH_STOPWORDS = {
     "a",
@@ -246,6 +229,19 @@ COGNATE_SUFFIX_MAP = (
     ("able", "able"),
     ("ibles", "ible"),
     ("ible", "ible"),
+    # Italian suffixes (source -> English)
+    ("izioni", "itions"),
+    ("zioni", "tions"),
+    ("zione", "tion"),
+    ("sioni", "sions"),
+    ("sione", "sion"),
+    ("enze", "ences"),
+    ("enza", "ence"),
+    ("anze", "ances"),
+    ("anza", "ance"),
+    ("ibili", "ibles"),
+    ("ibile", "ible"),
+    ("ita", "ity"),
     ("kturen", "ctures"),
     ("ktur", "cture"),
     ("turen", "tures"),
@@ -276,6 +272,16 @@ ADJECTIVE_SUFFIXES = (
     "arios",
     "ible",
     "ibles",
+    # Italian adjective endings (Romance; spaCy POS handles the primary path,
+    # this list is only the no-model fallback)
+    "bile",
+    "bili",
+    "ente",
+    "enti",
+    "evole",
+    "evoli",
+    "etto",
+    "etti",
     "ig",
     "ige",
     "igen",

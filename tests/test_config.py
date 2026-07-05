@@ -14,7 +14,7 @@ def _base_alerts_dict():
         "email": "your@email.com",
         "cooldown_hours": 6,
         "email_config": {
-            "from": "bot@briefberlin.de",
+            "from": "bot@flashmilano.it",
             "smtp": {
                 "host": "smtp.gmail.com",
                 "port": 587,
@@ -48,8 +48,8 @@ def test_audio_env_overrides(monkeypatch):
     monkeypatch.setenv("AUDIO_VOICE", "newsreader")
     monkeypatch.setenv("AUDIO_FORMAT", "mp3")
     monkeypatch.setenv("AUDIO_UPLOAD_ENABLED", "false")
-    monkeypatch.setenv("AUDIO_PUBLIC_BASE_URL", "https://media.briefberlin.de")
-    monkeypatch.setenv("AUDIO_S3_BUCKET", "briefberlin-audio-prod")
+    monkeypatch.setenv("AUDIO_PUBLIC_BASE_URL", "https://media.flashmilano.it")
+    monkeypatch.setenv("AUDIO_S3_BUCKET", "flashmilano-audio-prod")
     monkeypatch.setenv("AUDIO_S3_REGION", "eu-central-1")
     monkeypatch.setenv("AUDIO_S3_PREFIX", "articles")
     try:
@@ -60,8 +60,8 @@ def test_audio_env_overrides(monkeypatch):
         assert config["audio"]["voice"] == "newsreader"
         assert config["audio"]["format"] == "mp3"
         assert config["audio"]["upload_enabled"] is False
-        assert config["audio"]["public_base_url"] == "https://media.briefberlin.de"
-        assert config["audio"]["s3"]["bucket"] == "briefberlin-audio-prod"
+        assert config["audio"]["public_base_url"] == "https://media.flashmilano.it"
+        assert config["audio"]["s3"]["bucket"] == "flashmilano-audio-prod"
         assert config["audio"]["s3"]["region"] == "eu-central-1"
         assert config["audio"]["s3"]["prefix"] == "articles"
     finally:
@@ -95,11 +95,11 @@ def test_glossary_env_overrides(monkeypatch):
 
 def test_logging_env_overrides(monkeypatch):
     """LOG_NAME populates the logging config subtree."""
-    monkeypatch.setenv("LOG_NAME", "briefitalia")
+    monkeypatch.setenv("LOG_NAME", "flashmilano")
     try:
         config = {}
         apply_env_overrides(config)
-        assert config["logging"]["name"] == "briefitalia"
+        assert config["logging"]["name"] == "flashmilano"
     finally:
         monkeypatch.delenv("LOG_NAME", raising=False)
 
@@ -114,7 +114,7 @@ def test_language_env_overrides(monkeypatch):
     monkeypatch.setenv("LANGUAGE_GLOSSARY_HEADING", "Vocabolario")
     monkeypatch.setenv("LANGUAGE_PROMPT_PACK", "italian")
     monkeypatch.setenv("LANGUAGE_GLOSSARY_RULES", "italian")
-    monkeypatch.setenv("LANGUAGE_SITE_NAME", "BriefItalia")
+    monkeypatch.setenv("LANGUAGE_SITE_NAME", "FlashMilano")
     try:
         config = {}
         apply_env_overrides(config)
@@ -126,7 +126,7 @@ def test_language_env_overrides(monkeypatch):
         assert config["language"]["glossary_heading"] == "Vocabolario"
         assert config["language"]["prompt_pack"] == "italian"
         assert config["language"]["glossary_rules"] == "italian"
-        assert config["language"]["site_name"] == "BriefItalia"
+        assert config["language"]["site_name"] == "FlashMilano"
     finally:
         for key in (
             "LANGUAGE_TARGET",
@@ -144,7 +144,7 @@ def test_language_env_overrides(monkeypatch):
 
 def test_app_config_rejects_unsupported_prompt_pack(base_config):
     config_dict = base_config.model_dump()
-    config_dict["language"]["prompt_pack"] = "italian"
+    config_dict["language"]["prompt_pack"] = "french"
 
     with pytest.raises(ValidationError, match="Unsupported language.prompt_pack"):
         AppConfig(**config_dict)
@@ -152,7 +152,7 @@ def test_app_config_rejects_unsupported_prompt_pack(base_config):
 
 def test_app_config_rejects_unsupported_glossary_rules(base_config):
     config_dict = base_config.model_dump()
-    config_dict["language"]["glossary_rules"] = "italian"
+    config_dict["language"]["glossary_rules"] = "french"
 
     with pytest.raises(ValidationError, match="Unsupported language.glossary_rules"):
         AppConfig(**config_dict)

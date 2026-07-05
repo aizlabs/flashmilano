@@ -17,18 +17,18 @@ from scripts.models import (
 # Level-specific grammar rules
 LEVEL_GENERATION_RULES = {
     'A2': """
-- Use mostly Präsens
-- Use Perfekt only for completed past events when needed
+- Use mostly Presente (present tense)
+- Use Passato prossimo only for completed past events when needed
 - Simple sentences (max 12 words per sentence)
-- Vocabulary: common everyday German words; explain unavoidable news terms simply
-- Avoid Konjunktiv I/II and heavy nominal style
+- Vocabulary: common everyday Italian words; explain unavoidable news terms simply
+- Avoid Congiuntivo and heavy nominal style
 - Short, clear sentences
 """,
     'B1': """
-- Mix tenses naturally: Präsens, Perfekt, Präteritum for common reporting verbs, Futur with werden sparingly
+- Mix tenses naturally: Presente, Passato prossimo, Imperfetto for common reporting verbs, Futuro sparingly
 - Varied sentence length (8-18 words)
 - Intermediate vocabulary
-- Avoid dense nominalizations and long bracket constructions
+- Avoid dense nominalizations and long complex constructions
 - Some complex sentences with subordinate clauses
 """
 }
@@ -36,27 +36,27 @@ LEVEL_GENERATION_RULES = {
 LEVEL_EVALUATION_CRITERIA = {
     'A2': """
 A2 Level Grammar Expectations:
-- Präsens should be primary
-- Perfekt only for completed actions when needed
-- No Konjunktiv I/II
+- Presente should be primary
+- Passato prossimo only for completed actions when needed
+- No Congiuntivo
 - Simple sentence structures
-- Basic connectors (und, aber, weil, wenn, dann)
+- Basic connectors (e, ma, perché, quando, se, poi)
 """,
     'B1': """
 B1 Level Grammar Expectations:
-- Mixed tenses: Präsens, Perfekt, common Präteritum forms, simple Futur
+- Mixed tenses: Presente, Passato prossimo, common Imperfetto forms, simple Futuro
 - More complex sentences with subordinate clauses
-- Varied connectors (obwohl, während, deshalb, trotzdem, weil)
+- Varied connectors (anche se, mentre, perciò, tuttavia, perché)
 """
 }
 
 # A2 News Processing Instructions (text adaptation only)
 A2_NEWS_PROCESSING_INSTRUCTIONS = """
-You are a German language education specialist tasked with adapting news articles to A2 CEFR level while maintaining their informational value. Your job is to produce a clean A2 German article. Glossary creation happens later in a separate stage, so do not create glossary entries or markdown emphasis.
+You are an Italian language education specialist tasked with adapting news articles to A2 CEFR level while maintaining their informational value. Your job is to produce a clean A2 Italian article. Glossary creation happens later in a separate stage, so do not create glossary entries or markdown emphasis.
 
 === STEP 1: VOCABULARY ASSESSMENT ===
 
-1.1 Identify ALL words/phrases outside common A2 German vocabulary
+1.1 Identify ALL words/phrases outside common A2 Italian vocabulary
 1.2 Categorize identified words/phrases:
     - Category A: Essential for understanding the main story
     - Category B: Important but secondary information
@@ -77,30 +77,30 @@ You are a German language education specialist tasked with adapting news article
 
 2.2 VERB TENSE SIMPLIFICATION
     Allowed tenses:
-    - Präsens
-    - Perfekt for completed past events when needed
-    - simple future with werden only when needed
+    - Presente (present tense)
+    - Passato prossimo for completed past events when needed
+    - simple future only when needed
 
     Required conversions:
-    - Konjunktiv I/II → simple indicative wording
+    - Congiuntivo → simple indicative wording
     - passive voice → active voice where possible
     - dense nominal style → verb-based clauses
-    - long verb brackets → shorter sentences
+    - long complex constructions → shorter sentences
 
 2.3 SYNTACTIC SIMPLIFICATION
     - Convert ALL passive voice to active voice
     - Replace subordinate clauses with simple sentences
-    - Use basic conjunctions only: und, aber, weil, wenn, dann
+    - Use basic conjunctions only: e, ma, perché, quando, se, poi
     - Ensure subject-verb proximity (maximum 5 words between)
     - Maintain chronological order when possible
 
 2.4 TRANSITION WORDS
     Add these connectors for flow:
-    - Sequence: zuerst, dann, danach, am Ende
-    - Addition: auch, außerdem
-    - Contrast: aber, trotzdem
-    - Cause: weil, deshalb
-    - Time: wenn, als, vor, nach
+    - Sequence: prima, poi, dopo, alla fine
+    - Addition: anche, inoltre
+    - Contrast: ma, tuttavia
+    - Cause: perché, perciò
+    - Time: quando, mentre, prima di, dopo
 
 === STEP 3: CONTENT ORGANIZATION ===
 
@@ -133,16 +133,16 @@ You are a German language education specialist tasked with adapting news article
 Before finalizing, verify:
 
 □ VOCABULARY
-  - Most words are within A2-level German
+  - Most words are within A2-level Italian
   - Difficult terms are simplified or explained naturally in the text
   - No glossary markers or markdown emphasis appear in the article
 
 □ STRUCTURE
   - No sentence exceeds 20 words
   - Average sentence length is 10-15 words
-  - Mostly Präsens, with Perfekt only when needed
+  - Mostly Presente, with Passato prossimo only when needed
   - No passive voice constructions
-  - No Konjunktiv I/II
+  - No Congiuntivo
 
 □ CONTENT
   - Main news value is preserved
@@ -152,7 +152,7 @@ Before finalizing, verify:
   - Cause-effect relationships are simplified but maintained
 
 □ READABILITY
-  - Text flows naturally in German
+  - Text flows naturally in Italian
   - Transitions between sentences are smooth
   - Paragraphs are clearly organized
   - Cultural references are explained
@@ -182,7 +182,7 @@ For Complex Political Terms:
 For Economic/Financial Content:
 1. Replace percentages with simple descriptions when possible
 2. Simplify large numbers
-3. Rewrite economic terminology into simpler German when possible
+3. Rewrite economic terminology into simpler Italian when possible
 4. Focus on human impact rather than abstract markets
 
 For Cultural References:
@@ -201,7 +201,7 @@ ERROR HANDLING:
 
 If vocabulary simplification conflicts with meaning:
 - Priority: Preserve meaning over strict A2 compliance
-- Solution: explain the complex term in simple German rather than using inaccurate wording
+- Solution: explain the complex term in simple Italian rather than using inaccurate wording
 
 If sentence cannot be shortened:
 - Accept sentences up to 25 words if absolutely necessary
@@ -216,26 +216,26 @@ If the article remains too dense:
 VALIDATION EXAMPLES:
 
 Good Simplification:
-❌ Original: "Die Bundesregierung äußerte Besorgnis über den deutlichen Anstieg der Inflationsrate."
-✅ Simplified: "Die Regierung ist besorgt. Viele Preise steigen stark."
+❌ Original: "Il governo ha espresso preoccupazione per il forte aumento del tasso di inflazione."
+✅ Simplified: "Il governo è preoccupato. Molti prezzi salgono molto."
 
 Good Vocabulary Choice:
-✅ Keep: "Die Preise steigen stark."
-❌ Don't keep: "Inflationsrate" if simple wording can replace it
+✅ Keep: "I prezzi salgono molto."
+❌ Don't keep: "tasso di inflazione" if simple wording can replace it
 
 Good Sentence Breaking:
-❌ Original: "Der Minister, der gestern aus Brüssel zurückkam, wo er an einem Klimagipfel teilnahm, kündigte neue Investitionen in erneuerbare Energien an."
-✅ Simplified: "Der Minister war gestern in Brüssel. Dort gab es ein Treffen zum Klima. Er sagte: Deutschland will mehr Geld für saubere Energie ausgeben."
+❌ Original: "Il ministro, che ieri è tornato da Bruxelles dove ha partecipato a un vertice sul clima, ha annunciato nuovi investimenti nelle energie rinnovabili."
+✅ Simplified: "Il ministro era ieri a Bruxelles. Lì c'è stata una riunione sul clima. Ha detto: l'Italia vuole spendere più soldi per l'energia pulita."
 """
 
 # B1 Adaptation Instructions (text adaptation only)
 B1_ADAPTATION_INSTRUCTIONS = """
-You are a German language education specialist tasked with adapting news articles to B1 CEFR level while maintaining their informational value. Keep authentic news style but make the language accessible to solid intermediate learners. Glossary creation happens later in a separate stage, so do not create glossary entries or markdown emphasis.
+You are an Italian language education specialist tasked with adapting news articles to B1 CEFR level while maintaining their informational value. Keep authentic news style but make the language accessible to solid intermediate learners. Glossary creation happens later in a separate stage, so do not create glossary entries or markdown emphasis.
 
 === B1 ADAPTATION GUIDELINES ===
 
 STEP 1: VOCABULARY ASSESSMENT
-1.1 Identify words/phrases outside common B1 German vocabulary.
+1.1 Identify words/phrases outside common B1 Italian vocabulary.
 1.2 Keep only terminology that is necessary for the story's meaning and simplify the rest.
 1.3 Explain cultural, institutional, and technical terms naturally in context when needed.
 1.4 Do not add **bold** formatting, glossary entries, or vocabulary notes.
@@ -245,11 +245,11 @@ STEP 2: STRUCTURE AND GRAMMAR TUNING
 2.1 Sentence shaping
     - Target average length: 12-20 words; absolute maximum: 25 words
     - One main idea per sentence; split clauses that stack multiple actions
-    - Use varied connectors: obwohl, während, deshalb, trotzdem, außerdem
+    - Use varied connectors: anche se, mentre, perciò, tuttavia, inoltre
 2.2 Tense and mood guidance
-    - Mix Präsens, Perfekt, common Präteritum forms, and simple Futur
+    - Mix Presente, Passato prossimo, common Imperfetto forms, and simple Futuro
     - Maintain chronological flow when narrating events
-    - Avoid Konjunktiv I/II and heavy passive voice; convert to active voice where possible
+    - Avoid Congiuntivo and heavy passive voice; convert to active voice where possible
 2.3 Complexity reduction
     - Replace nested subordinate clauses with clearer sentences
     - Convert passive to active when it keeps meaning intact
@@ -327,7 +327,7 @@ def get_generation_prompt(
     """
     Prompt for initial article generation
 
-    Generates an original German article by synthesizing multiple sources.
+    Generates an original Italian article by synthesizing multiple sources.
     Uses level-specific grammar rules and vocabulary constraints.
 
     Args:
@@ -345,19 +345,19 @@ def get_generation_prompt(
     validate_level(level)
     source_context = prepare_source_context(sources)
 
-    prompt = f"""You are a German language teacher creating educational content for {level} level students.
+    prompt = f"""You are an Italian language teacher creating educational content for {level} level students.
 
 TOPIC: {topic.title}
 
 REFERENCE SOURCES (synthesize information, DO NOT copy text):
 {source_context}
 
-TASK: Create an ORIGINAL article in German that:
+TASK: Create an ORIGINAL article in Italian that:
 1. Synthesizes information from the sources above in your own words
-2. Is appropriate for {level} German learners
+2. Is appropriate for {level} Italian learners
 3. Is approximately {word_count} words long
 4. Has 3 clear paragraphs with good flow
-5. Includes cultural context relevant to German learners when useful
+5. Includes cultural context relevant to Italian learners when useful
 6. Is engaging and educational
 
 LEVEL REQUIREMENTS for {level}:
@@ -365,13 +365,13 @@ LEVEL REQUIREMENTS for {level}:
 
 OUTPUT FORMAT (return ONLY valid JSON, no markdown):
 {{
-  "title": "Engaging title in German (5-8 words)",
-  "content": "Full article text in German (~{word_count} words, 3 paragraphs)",
+  "title": "Engaging title in Italian (5-8 words)",
+  "content": "Full article text in Italian (~{word_count} words, 3 paragraphs)",
   "vocabulary": {{
     "word1": "English translation",
     "word2": "English translation"
   }},
-  "summary": "One sentence summary in German",
+  "summary": "One sentence summary in Italian",
   "reading_time": estimated_minutes_as_integer
 }}
 
@@ -456,7 +456,7 @@ def get_quality_judge_prompt(article: AdaptedArticle, level: str) -> str:
         ValueError: If level is not supported
     """
     validate_level(level)
-    prompt = f"""You are a German language teaching expert. Evaluate this article for {level} level learners.
+    prompt = f"""You are an Italian language teaching expert. Evaluate this article for {level} level learners.
 
 ARTICLE:
 Title: {article.title}
@@ -472,7 +472,7 @@ EVALUATION CRITERIA (total 0-10 points):
 - Is the grammar appropriate for {level}?
 
 2. Educational Value (0-3 points):
-- Is this interesting and useful for German learners?
+- Is this interesting and useful for Italian learners?
 - Does it teach cultural concepts?
 - Is the article itself useful as a learning text?
 
@@ -522,7 +522,7 @@ def get_news_processing_prompt(article_text: str, source_url: Optional[str] = No
     informational value through strategic glossing of key terminology.
 
     Args:
-        article_text: Original German news article text
+        article_text: Original Italian news article text
         source_url: Optional URL of the original article
         source_date: Optional publication date
 
@@ -566,8 +566,8 @@ def get_synthesis_prompt(topic: Topic, sources: List[SourceArticle]) -> str:
     Step 1: Native-level synthesis without CEFR constraints
 
     Synthesizes multiple source articles into one coherent native-level
-    German article. No vocabulary limitations or grammar simplification.
-    Focus is on factual accuracy and natural German expression.
+    Italian article. No vocabulary limitations or grammar simplification.
+    Focus is on factual accuracy and natural Italian expression.
 
     Args:
         topic: Topic dict with 'title' key
@@ -578,13 +578,13 @@ def get_synthesis_prompt(topic: Topic, sources: List[SourceArticle]) -> str:
     """
     source_context = prepare_source_context(sources)
 
-    prompt = f"""You are a professional German journalist. Synthesize the following sources into ONE coherent news article in natural, native-level German.
+    prompt = f"""You are a professional Italian journalist. Synthesize the following sources into ONE coherent news article in natural, native-level Italian.
 
 TOPIC: {topic.title}
 
-TASK: Write an ORIGINAL article in German that:
+TASK: Write an ORIGINAL article in Italian that:
 1. Synthesizes facts from all sources into a coherent narrative
-2. Uses natural, native-level German (no simplification)
+2. Uses natural, native-level Italian (no simplification)
 3. Is approximately 300-400 words
 4. Has 3-4 well-structured paragraphs
 5. Maintains journalistic objectivity and accuracy
@@ -594,20 +594,20 @@ CRITICAL RULES:
 - Write ORIGINAL content - synthesize ideas in your own words
 - DO NOT copy phrases directly from sources
 - Cross-validate facts across sources (prioritize information from multiple sources)
-- Use natural German vocabulary and grammar (no CEFR constraints)
+- Use natural Italian vocabulary and grammar (no CEFR constraints)
 - Focus on FACTUAL ACCURACY above all else
 - DO NOT add source attribution or source details
 - Maintain a neutral, journalistic tone
 
 OUTPUT FORMAT (return ONLY valid JSON, no markdown):
 {{
-  "title": "Engaging headline in German (8-12 words)",
-  "content": "Full article in natural German (300-400 words, 3-4 paragraphs)",
-  "summary": "One sentence summary in German",
+  "title": "Engaging headline in Italian (8-12 words)",
+  "content": "Full article in natural Italian (300-400 words, 3-4 paragraphs)",
+  "summary": "One sentence summary in Italian",
   "reading_time": estimated_minutes_as_integer
 }}
 
-Remember: This is native-level German. Write naturally and accurately without any simplification.
+Remember: This is native-level Italian. Write naturally and accurately without any simplification.
 
 SOURCES TO SYNTHESIZE:
 {source_context}
@@ -623,12 +623,12 @@ def get_a2_adaptation_prompt(
     """
     Step 2: Adapt base article to A2 level using glossing strategy
 
-    Adapts a native-level German article to A2 CEFR level while preserving
+    Adapts a native-level Italian article to A2 CEFR level while preserving
     informational value through strategic glossing of key terminology.
     Uses existing A2_NEWS_PROCESSING_INSTRUCTIONS.
 
     Args:
-        base_article: Base article dict from ArticleSynthesizer with native German
+        base_article: Base article dict from ArticleSynthesizer with native Italian
         feedback: Optional list of issues from quality gate (for regeneration)
 
     Returns:
@@ -664,7 +664,7 @@ OUTPUT FORMAT (return ONLY valid JSON, no markdown):
 {{
   "title": "Simplified title (max 10 words)",
   "content": "A2-adapted content in plain text only (~200 words), with no markdown emphasis and no glossary",
-  "summary": "One sentence summary in simple German",
+  "summary": "One sentence summary in simple Italian",
   "reading_time": 2
 }}
 
@@ -690,12 +690,12 @@ def get_b1_adaptation_prompt(
     """
     Step 2: Adapt base article to B1 level (light adaptation)
 
-    Adapts a native-level German article to B1 CEFR level.
+    Adapts a native-level Italian article to B1 CEFR level.
     Similar structure to A2 but less restrictive.
     This is designed to be similar to A2 prompt but will be refined externally.
 
     Args:
-        base_article: Base article dict from ArticleSynthesizer with native German
+        base_article: Base article dict from ArticleSynthesizer with native Italian
         feedback: Optional list of issues from quality gate (for regeneration)
 
     Returns:
@@ -734,9 +734,9 @@ Key goals:
 
 OUTPUT FORMAT (return ONLY valid JSON, no markdown):
 {{
-  "title": "Engaging title in German (8-10 words)",
+  "title": "Engaging title in Italian (8-10 words)",
   "content": "B1-adapted content in plain text only (~300 words), with no markdown emphasis and no glossary",
-  "summary": "One sentence summary in German",
+  "summary": "One sentence summary in Italian",
   "reading_time": 3
 }}
 
@@ -760,22 +760,21 @@ def get_glossary_generation_prompt(article: AdaptedArticle) -> str:
     default_counts = {"A2": "4-8", "B1": "5-9"}
     max_words = {"A2": 15, "B1": 20}
     explanation_style = {
-        "A2": "Use only very simple German vocabulary.",
-        "B1": "Use clear intermediate German vocabulary.",
+        "A2": "Use only very simple Italian vocabulary.",
+        "B1": "Use clear intermediate Italian vocabulary.",
     }
 
-    return f"""You are generating clickable translation hints for an English-speaking learner reading this German article.
+    return f"""You are generating clickable translation hints for an English-speaking learner reading this Italian article.
 
 Use ONLY the exact final article text below. The article itself is already approved, so do not rewrite it.
 
 SELECTION RULES:
 - Choose many words or phrases that are useful for an English-speaking learner.
 - Be broad and systematic: scan every sentence for learner-useful terms, not only the main news nouns.
-- Prefer standalone words, separable German compounds, and short reusable expressions.
+- Prefer standalone words and short reusable expressions.
 - Include a balanced mix of nouns, compound nouns, verbs, adjectives, adverbs, and short fixed expressions.
-- Prioritize long or opaque German compound nouns when their meaning is not obvious from
-  English or context, for example Jugendhilfeeinrichtung. Select the full compound word
-  as the term, not only one part.
+- Prioritize abstract or domain-specific nouns whose meaning is not obvious from
+  English or context.
 - Include useful verbs and adjectives even when they are not important enough for the default visible glossary.
 - Use phrases only when the complete phrase has a meaning a learner would not understand from the individual words.
 - Keep phrase terms short: usually 1 word, sometimes 2 words, never more than 3 words.
@@ -783,7 +782,7 @@ SELECTION RULES:
 - Include enough useful terms that a learner can click through much of the article text.
 - Avoid proper names, country names, common place names, and famous people.
 - Avoid obvious cognates and transparent loanwords that an English speaker can easily guess.
-- Do not select German words that look very similar to English and have the same meaning, such as Temperaturen/temperatures or Infrastruktur/infrastructure.
+- Do not select Italian words that look very similar to English and have the same meaning, such as temperatura/temperature or informazione/information.
 - Avoid isolated modifiers when the real useful unit is a longer phrase.
 - Mark only the strongest learner terms as default_glossary=true.
 - Mark all other useful click-only terms as default_glossary=false.
@@ -793,7 +792,7 @@ LEVEL GUIDANCE:
 - Target {target_counts[article.level]} clickable translation hints when possible.
 - Target {default_counts[article.level]} default glossary entries when possible.
 - {explanation_style[article.level]}
-- Maximum {max_words[article.level]} words per German explanation.
+- Maximum {max_words[article.level]} words per Italian explanation.
 
 OUTPUT FORMAT (return ONLY valid JSON, no markdown):
 {{
@@ -801,7 +800,7 @@ OUTPUT FORMAT (return ONLY valid JSON, no markdown):
     {{
       "term": "exact word or phrase from the article text",
       "english": "natural English translation",
-      "explanation": "short German explanation for the learner",
+      "explanation": "short Italian explanation for the learner",
       "default_glossary": true
     }}
   ]
@@ -827,8 +826,8 @@ def get_glossary_retry_prompt(
     default_counts = {"A2": "4-8", "B1": "5-9"}
     max_words = {"A2": 15, "B1": 20}
     explanation_style = {
-        "A2": "Use only very simple German vocabulary.",
-        "B1": "Use clear intermediate German vocabulary.",
+        "A2": "Use only very simple Italian vocabulary.",
+        "B1": "Use clear intermediate Italian vocabulary.",
     }
     rejected_lines = "\n".join(
         f"- {term}: {reason}"
@@ -836,7 +835,7 @@ def get_glossary_retry_prompt(
     ) or "- No rejected terms recorded"
     shortlist_lines = "\n".join(f"- {term}" for term in shortlist) or "- No shortlist available"
 
-    return f"""You are retrying clickable translation hint generation for an English-speaking learner reading this German article.
+    return f"""You are retrying clickable translation hint generation for an English-speaking learner reading this Italian article.
 
 The previous glossary attempt failed deterministic validation. Generate a NEW set of candidates from the exact article text below.
 
@@ -845,17 +844,16 @@ HARD RULES:
 - Do NOT rewrite the article.
 - Every term must appear literally in the article text.
 - Be broad and systematic: scan every sentence for learner-useful terms, not only the main news nouns.
-- Prefer standalone words, separable German compounds, domain nouns, and short reusable expressions.
+- Prefer standalone words, domain nouns, and short reusable expressions.
 - Include a balanced mix of nouns, compound nouns, verbs, adjectives, adverbs, and short fixed expressions.
-- Prioritize long or opaque German compound nouns when their meaning is not obvious from
-  English or context, for example Jugendhilfeeinrichtung. Select the full compound word
-  as the term, not only one part.
+- Prioritize abstract or domain-specific nouns whose meaning is not obvious from
+  English or context.
 - Include useful verbs and adjectives even when they are not important enough for the default visible glossary.
 - Use phrases only when the complete phrase has a meaning a learner would not understand from the individual words.
 - Keep phrase terms short: usually 1 word, sometimes 2 words, never more than 3 words.
 - Do not select long sentence fragments such as adjective + noun + prepositional phrase.
 - Avoid names, countries, famous people, obvious cognates, transparent loanwords, and isolated modifiers.
-- Do not select German words that look very similar to English and have the same meaning, such as Temperaturen/temperatures or Infrastruktur/infrastructure.
+- Do not select Italian words that look very similar to English and have the same meaning, such as temperatura/temperature or informazione/information.
 - Mark only the strongest learner terms as default_glossary=true.
 - Mark all other useful click-only terms as default_glossary=false.
 - If only a few strong terms remain, return only those. Do not add filler terms.
@@ -870,7 +868,7 @@ LEVEL GUIDANCE:
 - Target {target_counts[article.level]} clickable translation hints when possible.
 - Target {default_counts[article.level]} default glossary entries when possible.
 - {explanation_style[article.level]}
-- Maximum {max_words[article.level]} words per German explanation.
+- Maximum {max_words[article.level]} words per Italian explanation.
 
 OUTPUT FORMAT (return ONLY valid JSON, no markdown):
 {{
@@ -878,7 +876,7 @@ OUTPUT FORMAT (return ONLY valid JSON, no markdown):
     {{
       "term": "exact word or phrase from the article text, and not one of the rejected terms",
       "english": "natural English translation",
-      "explanation": "short German explanation for the learner",
+      "explanation": "short Italian explanation for the learner",
       "default_glossary": true
     }}
   ]

@@ -107,7 +107,7 @@ class TestGetSynthesisPrompt:
 
         # Should have task description
         assert 'ORIGINAL article' in prompt
-        assert 'natural, native-level German' in prompt
+        assert 'natural, native-level Italian' in prompt
         assert '300-400 words' in prompt
 
         # Should have critical rules
@@ -227,10 +227,10 @@ class TestGetB1AdaptationPrompt:
         prompt = get_b1_adaptation_prompt(sample_base_article)
 
         # Should allow advanced grammar
-        assert 'Präsens' in prompt
-        assert 'Perfekt' in prompt
-        assert 'Präteritum' in prompt
-        assert 'Konjunktiv' in prompt
+        assert 'Presente' in prompt
+        assert 'Passato prossimo' in prompt
+        assert 'Imperfetto' in prompt
+        assert 'Congiuntivo' in prompt
 
     def test_b1_prompt_vocabulary_glosses(self, sample_base_article):
         """Test B1 prompt explicitly forbids inline gloss formatting."""
@@ -253,12 +253,9 @@ class TestGetGlossaryGenerationPrompt:
             "scan every sentence",
             "not only the main news nouns",
             "Prefer standalone words",
-            "separable German compounds",
             "short reusable expressions",
             "nouns, compound nouns, verbs, adjectives, adverbs",
-            "Prioritize long or opaque German compound nouns",
-            "Jugendhilfeeinrichtung",
-            "Select the full compound word",
+            "Prioritize abstract or domain-specific nouns",
             "Include useful verbs and adjectives",
             "not important enough for the default visible glossary",
             "Use phrases only when the complete phrase has a meaning",
@@ -269,8 +266,8 @@ class TestGetGlossaryGenerationPrompt:
             "Avoid proper names",
             "Avoid obvious cognates",
             "look very similar to English",
-            "Temperaturen/temperatures",
-            "Infrastruktur/infrastructure",
+            "temperatura/temperature",
+            "informazione/information",
             "Mark only the strongest learner terms as default_glossary=true",
             "Mark all other useful click-only terms as default_glossary=false",
             "Do not add filler terms",
@@ -296,11 +293,11 @@ class TestGetGlossaryGenerationPrompt:
 
         assert "Target 20-40 clickable translation hints" in a2_prompt
         assert "Target 4-8 default glossary entries" in a2_prompt
-        assert "Use only very simple German vocabulary" in a2_prompt
+        assert "Use only very simple Italian vocabulary" in a2_prompt
 
         assert "Target 25-55 clickable translation hints" in b1_prompt
         assert "Target 5-9 default glossary entries" in b1_prompt
-        assert "Use clear intermediate German vocabulary" in b1_prompt
+        assert "Use clear intermediate Italian vocabulary" in b1_prompt
 
     def test_glossary_retry_prompt_contract(self, sample_a2_text_article):
         prompt = get_glossary_retry_prompt(
@@ -320,16 +317,14 @@ class TestGetGlossaryGenerationPrompt:
             "scan every sentence",
             "Prefer standalone words",
             "nouns, compound nouns, verbs, adjectives, adverbs",
-            "Prioritize long or opaque German compound nouns",
-            "Jugendhilfeeinrichtung",
-            "Select the full compound word",
+            "Prioritize abstract or domain-specific nouns",
             "Include useful verbs and adjectives",
             "Use phrases only when the complete phrase has a meaning",
             "never more than 3 words",
             "Do not select long sentence fragments",
             "look very similar to English",
-            "Temperaturen/temperatures",
-            "Infrastruktur/infrastructure",
+            "temperatura/temperature",
+            "informazione/information",
             "Mark only the strongest learner terms as default_glossary=true",
             "Mark all other useful click-only terms as default_glossary=false",
             "return ONLY valid JSON",
@@ -358,7 +353,7 @@ class TestLevelGenerationRules:
     def test_a2_rules_exist(self):
         """Test A2 rules defined"""
         assert 'A2' in LEVEL_GENERATION_RULES
-        assert 'präsens' in LEVEL_GENERATION_RULES['A2'].lower()
+        assert 'presente' in LEVEL_GENERATION_RULES['A2'].lower()
 
     def test_b1_rules_exist(self):
         """Test B1 rules defined"""
@@ -373,12 +368,12 @@ class TestLevelEvaluationCriteria:
     def test_a2_criteria_exist(self):
         """Test A2 evaluation criteria defined"""
         assert 'A2' in LEVEL_EVALUATION_CRITERIA
-        assert 'präsens' in LEVEL_EVALUATION_CRITERIA['A2'].lower()
+        assert 'presente' in LEVEL_EVALUATION_CRITERIA['A2'].lower()
 
     def test_b1_criteria_exist(self):
         """Test B1 evaluation criteria defined"""
         assert 'B1' in LEVEL_EVALUATION_CRITERIA
-        assert 'präteritum' in LEVEL_EVALUATION_CRITERIA['B1'].lower()
+        assert 'imperfetto' in LEVEL_EVALUATION_CRITERIA['B1'].lower()
 
 
 class TestPromptConsistency:

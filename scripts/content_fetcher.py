@@ -121,7 +121,7 @@ class ContentFetcher:
                 url,
                 timeout=self.timeout,
                 headers={
-                    'User-Agent': 'Mozilla/5.0 (compatible; BriefBerlinBot/1.0; Educational content bot)'
+                    'User-Agent': 'Mozilla/5.0 (compatible; FlashMilanoBot/1.0; Educational content bot)'
                 }
             )
             response.raise_for_status()
@@ -192,7 +192,7 @@ class ContentFetcher:
                 api_url,
                 timeout=self.timeout,
                 headers={
-                    'User-Agent': 'BriefBerlinBot/1.0 (Educational content bot)'
+                    'User-Agent': 'FlashMilanoBot/1.0 (Educational content bot)'
                 }
             )
             response.raise_for_status()

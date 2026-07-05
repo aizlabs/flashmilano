@@ -1,7 +1,7 @@
 # Website Audio AWS Runbook
 
 This runbook provisions private S3 storage and CloudFront delivery for website audio at
-`https://media.briefberlin.de/articles/.../article.mp3`.
+`https://media.flashmilano.it/articles/.../article.mp3`.
 
 Audio scripts and generated audio must come only from the public learner article. Never use
 private source text, base article drafts, logs, metrics, prompts, or intermediate private files
@@ -30,9 +30,9 @@ export AWS_PROFILE=your-profile
 Set the reusable names:
 
 ```bash
-export AUDIO_BUCKET=briefberlin-audio-prod
+export AUDIO_BUCKET=flashmilano-audio-prod
 export AUDIO_BUCKET_REGION=eu-central-1
-export AUDIO_DOMAIN=media.briefberlin.de
+export AUDIO_DOMAIN=media.flashmilano.it
 export AUDIO_PREFIX=articles
 export CF_CERT_REGION=us-east-1
 ```
@@ -121,7 +121,7 @@ aws acm describe-certificate \
   --output table
 ```
 
-Add the printed CNAME at the external DNS provider for `briefberlin.de`, then wait until ACM is
+Add the printed CNAME at the external DNS provider for `flashmilano.it`, then wait until ACM is
 issued:
 
 ```bash
@@ -136,14 +136,14 @@ Create an Origin Access Control if one does not already exist:
 
 ```bash
 aws cloudfront list-origin-access-controls \
-  --query "OriginAccessControlList.Items[?Name=='briefberlin-audio-oac']"
+  --query "OriginAccessControlList.Items[?Name=='flashmilano-audio-oac']"
 ```
 
 ```bash
-cat > /tmp/briefberlin-audio-oac.json <<'JSON'
+cat > /tmp/flashmilano-audio-oac.json <<'JSON'
 {
-  "Name": "briefberlin-audio-oac",
-  "Description": "BriefBerlin private audio S3 origin access",
+  "Name": "flashmilano-audio-oac",
+  "Description": "FlashMilano private audio S3 origin access",
   "SigningProtocol": "sigv4",
   "SigningBehavior": "always",
   "OriginAccessControlOriginType": "s3"
@@ -151,7 +151,7 @@ cat > /tmp/briefberlin-audio-oac.json <<'JSON'
 JSON
 
 export AUDIO_OAC_ID="$(aws cloudfront create-origin-access-control \
-  --origin-access-control-config file:///tmp/briefberlin-audio-oac.json \
+  --origin-access-control-config file:///tmp/flashmilano-audio-oac.json \
   --query "OriginAccessControl.Id" \
   --output text)"
 ```
@@ -160,22 +160,22 @@ export AUDIO_OAC_ID="$(aws cloudfront create-origin-access-control \
 
 Create or reuse a distribution with:
 
-- Alias: `media.briefberlin.de`
-- Origin: `briefberlin-audio-prod.s3.eu-central-1.amazonaws.com`
+- Alias: `media.flashmilano.it`
+- Origin: `flashmilano-audio-prod.s3.eu-central-1.amazonaws.com`
 - Viewer protocol policy: redirect HTTP to HTTPS
-- Certificate: ACM certificate for `media.briefberlin.de` in `us-east-1`
-- OAC: `briefberlin-audio-oac`
+- Certificate: ACM certificate for `media.flashmilano.it` in `us-east-1`
+- OAC: `flashmilano-audio-oac`
 
 Create config in `/tmp`:
 
 ```bash
 export AUDIO_ACCOUNT_ID="$(aws sts get-caller-identity --query Account --output text)"
-export AUDIO_ORIGIN_ID="briefberlin-audio-prod-s3"
+export AUDIO_ORIGIN_ID="flashmilano-audio-prod-s3"
 
-cat > /tmp/briefberlin-audio-distribution.json <<JSON
+cat > /tmp/flashmilano-audio-distribution.json <<JSON
 {
-  "CallerReference": "briefberlin-audio-$(date +%Y%m%d%H%M%S)",
-  "Comment": "BriefBerlin private website audio",
+  "CallerReference": "flashmilano-audio-$(date +%Y%m%d%H%M%S)",
+  "Comment": "FlashMilano private website audio",
   "Enabled": true,
   "Aliases": {
     "Quantity": 1,
@@ -239,7 +239,7 @@ cat > /tmp/briefberlin-audio-distribution.json <<JSON
 JSON
 
 aws cloudfront create-distribution \
-  --distribution-config file:///tmp/briefberlin-audio-distribution.json
+  --distribution-config file:///tmp/flashmilano-audio-distribution.json
 ```
 
 Record the returned distribution ID, ARN, and domain name, for example
@@ -253,7 +253,7 @@ Allow reads only from the CloudFront distribution ARN:
 export AUDIO_DISTRIBUTION_ID=E123EXAMPLE
 export AUDIO_DISTRIBUTION_ARN="arn:aws:cloudfront::$AUDIO_ACCOUNT_ID:distribution/$AUDIO_DISTRIBUTION_ID"
 
-cat > /tmp/briefberlin-audio-bucket-policy.json <<JSON
+cat > /tmp/flashmilano-audio-bucket-policy.json <<JSON
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -277,7 +277,7 @@ JSON
 
 aws s3api put-bucket-policy \
   --bucket "$AUDIO_BUCKET" \
-  --policy file:///tmp/briefberlin-audio-bucket-policy.json
+  --policy file:///tmp/flashmilano-audio-bucket-policy.json
 ```
 
 ## 7. External DNS Handoff
@@ -285,12 +285,12 @@ aws s3api put-bucket-policy \
 After the CloudFront distribution is deployed, add this CNAME at the external DNS provider:
 
 ```text
-Name:  media.briefberlin.de
+Name:  media.flashmilano.it
 Type:  CNAME
 Value: <cloudfront-distribution-domain-name>
 ```
 
-Do not create this final CNAME until CloudFront has the `media.briefberlin.de` alias and the ACM
+Do not create this final CNAME until CloudFront has the `media.flashmilano.it` alias and the ACM
 certificate is issued.
 
 ## 8. Local Environment
@@ -303,8 +303,8 @@ AUDIO_UPLOAD_ENABLED=true
 AUDIO_PROVIDER=openai
 AUDIO_VOICE=alloy
 AUDIO_FORMAT=mp3
-AUDIO_PUBLIC_BASE_URL=https://media.briefberlin.de
-AUDIO_S3_BUCKET=briefberlin-audio-prod
+AUDIO_PUBLIC_BASE_URL=https://media.flashmilano.it
+AUDIO_S3_BUCKET=flashmilano-audio-prod
 AUDIO_S3_REGION=eu-central-1
 AUDIO_S3_PREFIX=articles
 ```
@@ -315,18 +315,18 @@ uncommitted.
 For the normal one-source publishing workflow, use the wrapper command:
 
 ```bash
-uv run briefberlin-publish-source private-input/source-1.source.txt
+uv run flashmilano-publish-source private-input/source-1.source.txt
 ```
 
 It generates A2 and B1 learner posts, enables OpenAI MP3 audio upload, and uses the standard
-BriefBerlin media defaults above. It still only reads private source files from approved private
+FlashMilano media defaults above. It still only reads private source files from approved private
 input paths.
 
 To generate A2 and B1 learner posts plus local audio artifacts from a private source in one manual
 pipeline run:
 
 ```bash
-AUDIO_ENABLED=true uv run briefberlin-manual --level A2 --level B1 private-input/source-1.source.txt
+AUDIO_ENABLED=true uv run flashmilano-manual --level A2 --level B1 private-input/source-1.source.txt
 ```
 
 Local audio generation requires `OPENAI_API_KEY`. The command above creates local files under
@@ -338,13 +338,13 @@ To backfill or regenerate audio for an existing public post, use the same `Audio
 the post-audio command:
 
 ```bash
-uv run briefberlin-audio-post output/_posts/YYYY-MM-DD-HHMMSS-slug-level.md \
+uv run flashmilano-audio-post output/_posts/YYYY-MM-DD-HHMMSS-slug-level.md \
   --upload \
   --provider openai \
   --voice alloy \
   --format mp3 \
-  --public-base-url https://media.briefberlin.de \
-  --s3-bucket briefberlin-audio-prod \
+  --public-base-url https://media.flashmilano.it \
+  --s3-bucket flashmilano-audio-prod \
   --s3-region eu-central-1 \
   --s3-prefix articles
 ```
@@ -374,7 +374,7 @@ aws cloudfront get-distribution --id "$AUDIO_DISTRIBUTION_ID" \
 After uploading an article audio file and adding DNS, verify delivery:
 
 ```bash
-curl -I "https://media.briefberlin.de/articles/YYYY/MM/article-slug/article.mp3"
+curl -I "https://media.flashmilano.it/articles/YYYY/MM/article-slug/article.mp3"
 ```
 
 Expected: HTTPS response from CloudFront with an audio content type such as `audio/mpeg`.

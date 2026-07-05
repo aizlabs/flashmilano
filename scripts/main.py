@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-BriefBerlin - Main Pipeline Entry Point
+FlashMilano - Main Pipeline Entry Point
 
 This script orchestrates the entire content generation pipeline:
 1. Topic Discovery
@@ -10,7 +10,7 @@ This script orchestrates the entire content generation pipeline:
 5. Publishing
 
 This legacy public-source pipeline module is kept for component tests, but it
-is not exposed as a console command. Use `uv run briefberlin-manual ...` for
+is not exposed as a console command. Use `uv run flashmilano-manual ...` for
 the private manual-input workflow.
 """
 
@@ -71,7 +71,7 @@ def main():
     alert_manager = AlertManager(config, logger)
 
     logger.info("=" * 60)
-    logger.info("BriefBerlin - Content Generation Pipeline")
+    logger.info("FlashMilano - Content Generation Pipeline")
     logger.info("=" * 60)
     logger.info(f"Run ID: {run_id}")
     logger.info(f"Environment: {environment}")

@@ -39,7 +39,7 @@ class LevelAdapter:
         Adapt base article to target CEFR level
 
         Args:
-            base_article: Article from ArticleSynthesizer with native-level German
+            base_article: Article from ArticleSynthesizer with native-level Italian
             level: 'A2' or 'B1'
             feedback: Optional list of issues from quality gate (for regeneration)
 

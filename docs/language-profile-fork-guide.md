@@ -26,10 +26,10 @@ language:
     - Vokabeln
   prompt_pack: german
   glossary_rules: german
-  site_name: BriefItalia
+  site_name: FlashMilano
 
 logging:
-  name: briefitalia
+  name: flashmilano
 ```
 
 Keep `prompt_pack` and `glossary_rules` on supported values until the fork adds real implementations. The app rejects unsupported identifiers instead of silently running German prompts and glossary rules.

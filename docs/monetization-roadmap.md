@@ -1,13 +1,13 @@
-# BriefBerlin Monetization Roadmap
+# FlashMilano Monetization Roadmap
 
-BriefBerlin should launch without ads or trackers unless the privacy policy and consent flow are updated first.
+FlashMilano should launch without ads or trackers unless the privacy policy and consent flow are updated first.
 
 ## Current Recommendation
 
 For the first deploy, prioritize:
 
 - stable public articles;
-- clean German learner experience;
+- clean Italian learner experience;
 - accurate privacy and contact pages;
 - basic search indexing;
 - lightweight traffic measurement only if it is configured legally.
@@ -53,16 +53,16 @@ Potential future options:
 - downloadable reading packs;
 - newsletter sponsorships;
 - paid audio bundles;
-- partnerships with German teachers or language schools.
+- partnerships with Italian teachers or language schools.
 
-These should be evaluated only after BriefBerlin has a consistent content archive and clear audience signals.
+These should be evaluated only after FlashMilano has a consistent content archive and clear audience signals.
 
 ## Deployment Guardrail
 
 The public site config should use the production domain, currently planned as:
 
 ```yaml
-url: "https://briefberlin.de"
+url: "https://flashmilano.it"
 ```
 
 If a different domain is chosen, update `output/_config.yml`, media-domain examples, and policy copy before launch.

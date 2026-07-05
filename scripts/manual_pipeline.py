@@ -99,7 +99,7 @@ def run_manual_pipeline(args: argparse.Namespace) -> int:
     sources = load_private_sources(source_paths)
 
     logger.info("=" * 60)
-    logger.info("BriefBerlin - Manual Private Input Pipeline")
+    logger.info("FlashMilano - Manual Private Input Pipeline")
     logger.info("=" * 60)
     logger.info("Run ID: %s", run_id)
     logger.info("Environment: %s", environment)
@@ -179,7 +179,7 @@ def run_manual_pipeline(args: argparse.Namespace) -> int:
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Generate German learner articles from private local source files.",
+        description="Generate Italian learner articles from private local source files.",
     )
     parser.add_argument(
         "sources",

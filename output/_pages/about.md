@@ -1,26 +1,26 @@
 ---
 permalink: /about/
-title: "About BriefBerlin"
-excerpt: "Simplified German learner articles"
+title: "Informazioni su FlashMilano"
+excerpt: "Articoli semplificati per chi impara l'italiano"
 layout: single
 ---
 
-## What BriefBerlin Publishes
+## Cosa pubblica FlashMilano
 
-BriefBerlin publishes simplified German articles for A2 and B1 learners. Articles are generated from manually provided private source material and reviewed before they are committed as public output.
+FlashMilano pubblica articoli semplificati in italiano per i livelli A2 e B1. Gli articoli sono generati a partire da materiale privato fornito manualmente e vengono controllati prima di essere pubblicati come output pubblico.
 
-## Privacy Boundary
+## Confini della privacy
 
-Manual source articles are not public content. They are not committed, shown as source attribution, uploaded as diagnostics, or written into generated posts.
+Gli articoli con fonte manuale non sono contenuti pubblici. Non vengono salvati nel repository, mostrati come attribuzione della fonte, caricati come diagnostica o scritti negli articoli generati.
 
-## Levels
+## Livelli
 
-**A2:** short German articles with simple sentences, common vocabulary, and clear structure.
+**A2:** articoli brevi in italiano con frasi semplici, vocabolario comune e struttura chiara.
 
-**B1:** longer German articles with more context, mixed tenses, and intermediate vocabulary.
+**B1:** articoli più lunghi in italiano con più contesto, tempi misti e vocabolario intermedio.
 
-## Technology
+## Tecnologia
 
 - Python 3.11
-- German SpaCy model for language processing
-- Jekyll and GitHub Pages for static publishing
+- Modello spaCy italiano per l'elaborazione del linguaggio
+- Jekyll per la pubblicazione del sito statico

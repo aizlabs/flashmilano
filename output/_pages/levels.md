@@ -1,24 +1,24 @@
 ---
 permalink: /levels/
-title: "CEFR Levels"
-excerpt: "A2 and B1 German learner levels"
+title: "Livelli CEFR"
+excerpt: "Livelli per chi impara l'italiano: A2 e B1"
 layout: single
 ---
 
 ## A2
 
-A2 articles use short sentences, common words, and direct explanations. They are meant for learners who can understand simple everyday German and want structured reading practice.
+Gli articoli A2 usano frasi corte, parole comuni e spiegazioni dirette. Sono pensati per chi riesce a capire un italiano semplice di tutti i giorni e vuole esercitarsi con una lettura strutturata.
 
-Example:
-> "Die Stadt plant neue Busse. Viele Menschen fahren jeden Tag zur Arbeit."
+Esempio:
+> "La città prevede nuovi autobus. Molte persone vanno a lavorare ogni giorno."
 
 ## B1
 
-B1 articles add more context and more varied grammar while staying clear. They are meant for learners who can follow familiar topics and understand well-structured reporting.
+Gli articoli B1 aggiungono più contesto e una grammatica più variegata, restando chiari. Sono pensati per chi segue argomenti familiari e capisce testi giornalistici ben strutturati.
 
-Example:
-> "Die Stadt plant neue Busse, weil viele Menschen jeden Tag zur Arbeit fahren und bessere Verbindungen brauchen."
+Esempio:
+> "La città prevede nuovi autobus, perché molte persone vanno a lavorare ogni giorno e hanno bisogno di collegamenti migliori."
 
-## Reading Strategy
+## Strategia di lettura
 
-Start with A2 when the topic is new. Read B1 when you want more detail and more natural German phrasing.
+Inizia con l'A2 quando l'argomento è nuovo. Passa al B1 quando vuoi più dettagli e un italiano più naturale.

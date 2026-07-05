@@ -1,13 +1,13 @@
-# A2 German Adjustment Strategy
+# A2 Italian Adjustment Strategy
 
-This guide describes how BriefBerlin should adapt source material into A2 German learner articles.
+This guide describes how FlashMilano should adapt source material into A2 Italian learner articles.
 
 ## Goals
 
 - Keep the main facts.
-- Use short, direct German sentences.
+- Use short, direct Italian sentences.
 - Prefer high-frequency vocabulary.
-- Explain unavoidable abstract terms in a `Vokabeln` section.
+- Explain unavoidable abstract terms in a `Vocabolario` section.
 - Avoid copying private source phrasing.
 
 ## Article Shape
@@ -31,7 +31,7 @@ This guide describes how BriefBerlin should adapt source material into A2 German
 Add glossary entries when a learner needs a term to understand the article. Each entry should include:
 
 ```text
-- **German term** - English translation - Simple German explanation.
+- **Italian term** - English translation - Simple Italian explanation.
 ```
 
 Use the glossary for institutions, policy terms, public services, or topic-specific vocabulary. Do not overload the article with too many entries.
@@ -42,4 +42,4 @@ Use the glossary for institutions, policy terms, public services, or topic-speci
 - The article does not reveal private source text or URLs.
 - The title is clear and specific.
 - The text matches A2 difficulty.
-- The glossary explains hard terms in simple German.
+- The glossary explains hard terms in simple Italian.

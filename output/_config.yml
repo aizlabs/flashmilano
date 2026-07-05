@@ -1,10 +1,10 @@
 # Site Settings
-title: "BriefBerlin"
-name: "BriefBerlin"
-description: "Simplified German articles for A2 and B1 learners"
-url: "https://briefberlin.de"
+title: "FlashMilano"
+name: "FlashMilano"
+description: "Simplified Italian articles for A2 and B1 learners"
+url: ""  # Set to your Netlify domain after deploy (e.g. https://flashmilano.netlify.app)
 baseurl: ""
-repository: "zozulya/briefberlin"
+repository: "aizlabs/flashmilano"
 
 # Theme
 theme: minimal-mistakes-jekyll
@@ -12,11 +12,11 @@ minimal_mistakes_skin: "default"
 
 # Site Author
 author:
-  name: "BriefBerlin"
-  bio: "Simplified German learner articles"
+  name: "FlashMilano"
+  bio: "Simplified Italian learner articles"
 
-copyright: "BriefBerlin"
-copyright_url: "https://briefberlin.de"
+copyright: "FlashMilano"
+copyright_url: ""  # Set to your Netlify domain after deploy
 footer:
   since: "2026"
 
@@ -95,8 +95,8 @@ plugins:
   - jekyll-seo-tag
 
 # SEO
-lang: de
-locale: "de-DE"
+lang: it
+locale: "it-IT"
 logo: "/assets/images/logo.svg"
 social:
   type: WebSite

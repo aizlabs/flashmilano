@@ -401,7 +401,7 @@ def _build_telegram_audio_request(
         "chat_id": chat_id,
         "audio": post.audio_url,
         "title": _trim_telegram_field(post.title, TELEGRAM_AUDIO_TITLE_LIMIT),
-        "performer": f"BriefBerlin • {post.level}",
+        "performer": f"FlashMilano • {post.level}",
         "caption": format_telegram_audio_caption(post),
         "parse_mode": "HTML",
         "reply_markup": {

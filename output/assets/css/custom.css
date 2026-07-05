@@ -1,4 +1,4 @@
-/* BriefBerlin Custom Styles */
+/* FlashMilano Custom Styles */
 
 /* ==========================================================================
    Full Width Layout Override
@@ -83,13 +83,14 @@
    ========================================================================== */
 
 .site-title::before {
-  content: "🐻 ";
+  content: "✚ ";
+  color: #e30613;
   font-size: 1.2em;
   margin-right: 0.3em;
 }
 
 .site-title::after {
-  content: " – Deutsch lernen mit aktuellen Artikeln";
+  content: " – imparare l'italiano con articoli attuali";
   font-size: 0.85em;
   font-weight: 500;
   color: #6c757d;

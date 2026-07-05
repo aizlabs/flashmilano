@@ -1,0 +1,12 @@
+"""Built-in Italian language profile defaults."""
+
+DEFAULT_TARGET_LANGUAGE = "Italian"
+DEFAULT_TARGET_LANGUAGE_CODE = "it"
+DEFAULT_LOCALE = "it-IT"
+DEFAULT_LEARNER_NATIVE_LANGUAGE = "English"
+DEFAULT_SPACY_MODEL = "it_core_news_sm"
+DEFAULT_GLOSSARY_HEADING = "Vocabolario"
+DEFAULT_LEGACY_GLOSSARY_HEADINGS: list[str] = []
+DEFAULT_PROMPT_PACK = "italian"
+DEFAULT_GLOSSARY_RULES = "italian"
+DEFAULT_SITE_NAME = "FlashMilano"

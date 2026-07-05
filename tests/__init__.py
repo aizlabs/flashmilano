@@ -1,1 +1,1 @@
-"""Test suite for BriefBerlin."""
+"""Test suite for FlashMilano."""

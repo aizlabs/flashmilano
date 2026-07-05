@@ -3,7 +3,7 @@ version: '3.8'
 services:
   generator:
     build: .
-    container_name: briefberlin-generator
+    container_name: flashmilano-generator
     # Run as host user to avoid permission issues with mounted volumes
     # Container user is UID 1000 by default, override if needed:
     # user: "${UID:-1000}:${GID:-1000}"

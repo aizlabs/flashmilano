@@ -24,12 +24,12 @@ reading_time: 2
 In Berlin gibt es eine neue Meinung. Eine Umfrage zeigt neue Pläne.
 
 Der zweite Absatz bleibt Teil des Artikels.
-## Vokabeln
+## Vocabolario
 
 - **Umfrage** - survey - Eine Befragung von Menschen.
 
 ---
-*Vereinfachter Artikel zu Lernzwecken.*
+*Articolo semplificato per scopo didattico.*
 """,
         encoding="utf-8",
     )
@@ -45,13 +45,13 @@ def test_build_article_from_post_uses_public_article_body_and_vocabulary(tmp_pat
     assert article.title == "Test Artikel"
     assert article.level == "A2"
     assert article.summary == "In Berlin gibt es eine neue Meinung."
-    assert "## Vokabeln" not in article.content
-    assert "*Vereinfachter Artikel" not in article.content
+    assert "## Vocabolario" not in article.content
+    assert "*Articolo semplificato" not in article.content
     assert article.vocabulary[0].term == "Umfrage"
     assert article.vocabulary[0].english == "survey"
     assert timestamp.strftime("%Y-%m-%d %H:%M:%S") == "2026-06-27 01:35:05"
     assert frontmatter["audio"] is None
-    assert "## Vokabeln" in body
+    assert "## Vocabolario" in body
 
 
 def test_build_article_from_post_strips_interactive_glossary_markup(tmp_path, monkeypatch):
@@ -73,12 +73,12 @@ In Berlin gibt es eine <button type="button" class="article-term" data-term-id="
 
 <script type="application/json" class="article-glossary-data">[{"id":"term-1","term":"Umfrage"}]</script>
 
-## Vokabeln
+## Vocabolario
 
 - **Umfrage** - survey - Eine Befragung von Menschen.
 
 ---
-*Vereinfachter Artikel zu Lernzwecken.*
+*Articolo semplificato per scopo didattico.*
 """,
         encoding="utf-8",
     )
@@ -95,7 +95,7 @@ def test_build_article_from_post_accepts_configured_glossary_heading(tmp_path, m
     monkeypatch.chdir(tmp_path)
     post_path = _write_public_post(tmp_path, filename="2026-06-27-vocabolario-a2.md")
     post_path.write_text(
-        post_path.read_text(encoding="utf-8").replace("## Vokabeln", "## Vocabolario"),
+        post_path.read_text(encoding="utf-8").replace("## Vocabolario", "## Vocabolario"),
         encoding="utf-8",
     )
 
@@ -117,7 +117,7 @@ def test_build_article_from_post_keeps_legacy_heading_as_fallback(tmp_path, monk
         glossary_headings=["Vocabolario", "Vokabeln"],
     )
 
-    assert "## Vokabeln" not in article.content
+    assert "## Vocabolario" not in article.content
     assert article.vocabulary[0].term == "Umfrage"
 
 
@@ -139,7 +139,7 @@ def test_update_post_audio_writes_audio_frontmatter_only(tmp_path, monkeypatch):
     update_post_audio(
         post_path,
         AudioAsset(
-            url="https://media.briefberlin.de/articles/test/article.mp3",
+            url="https://media.flashmilano.it/articles/test/article.mp3",
             format="mp3",
             mime_type="audio/mpeg",
             provider="openai",
@@ -150,6 +150,6 @@ def test_update_post_audio_writes_audio_frontmatter_only(tmp_path, monkeypatch):
     )
 
     updated = post_path.read_text(encoding="utf-8")
-    assert "audio:\n  url: https://media.briefberlin.de/articles/test/article.mp3" in updated
+    assert "audio:\n  url: https://media.flashmilano.it/articles/test/article.mp3" in updated
     assert "mime_type: audio/mpeg" in updated
     assert "In Berlin gibt es eine neue Meinung. Eine Umfrage zeigt neue Pläne." in updated

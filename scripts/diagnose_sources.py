@@ -87,7 +87,7 @@ def test_wikipedia_api():
     print("\n2. With User-Agent:")
     try:
         headers = {
-            'User-Agent': 'BriefBerlinBot/1.0 (contact@example.com)'
+            'User-Agent': 'FlashMilanoBot/1.0 (contact@example.com)'
         }
         response = requests.get(url, timeout=10, headers=headers)
         print(f"   Status: {response.status_code}")

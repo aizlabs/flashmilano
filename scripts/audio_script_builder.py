@@ -27,7 +27,7 @@ def _normalized_spoken_text(text: str) -> str:
 def build_speech_script(
     article: AdaptedArticle,
     include_vocabulary: bool = False,
-    glossary_heading: str = "Vokabeln",
+    glossary_heading: str = "Vocabolario",
 ) -> SpeechScript:
     """Convert an adapted article into a narration-friendly plain-text script."""
     raw_vocabulary = article.vocabulary or []
@@ -53,9 +53,9 @@ def build_speech_script(
     if vocabulary_included:
         vocabulary_lines = [
             (
-                f"{item.term} bedeutet {item.explanation}."
+                f"{item.term} significa {item.explanation}."
                 if item.explanation
-                else f"{item.term} heißt auf Englisch {item.english}."
+                else f"{item.term} in inglese significa {item.english}."
             )
             for item in vocabulary_items
         ]
@@ -63,7 +63,7 @@ def build_speech_script(
             f"{glossary_heading}. " + " ".join(_strip_markdown(line) for line in vocabulary_lines)
         )
 
-    sections.append("Ende des Artikels.")
+    sections.append("Fine dell'articolo.")
     narration = "\n\n".join(section for section in sections if section)
 
     return SpeechScript(

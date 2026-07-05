@@ -12,7 +12,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-DEFAULT_LOGGER_NAME = "briefberlin"
+DEFAULT_LOGGER_NAME = "flashmilano"
 
 
 class JSONFormatter(logging.Formatter):

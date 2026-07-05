@@ -26,14 +26,14 @@
     const article = pageContent.closest ? pageContent.closest("article.page") : null;
     const dataElement = glossaryDataElement(article);
     const configuredHeading = dataElement && dataElement.dataset.glossaryHeading;
-    return (configuredHeading || "Vokabeln").trim() || "Vokabeln";
+    return (configuredHeading || "Vocabolario").trim() || "Vocabolario";
   }
 
   function glossaryLocale(pageContent) {
     const article = pageContent.closest ? pageContent.closest("article.page") : null;
     const dataElement = glossaryDataElement(article);
     const configuredLocale = dataElement && dataElement.dataset.glossaryLocale;
-    return configuredLocale || document.documentElement.lang || "de";
+    return configuredLocale || document.documentElement.lang || "it";
   }
 
   function normalizedHeading(text, locale) {
@@ -51,13 +51,13 @@
     popup.hidden = true;
     popup.innerHTML = [
       '<div class="article-glossary-popup__inner" role="dialog" aria-modal="false" aria-live="polite">',
-      '  <button class="article-glossary-popup__close" type="button" aria-label="Schließen">',
+      '  <button class="article-glossary-popup__close" type="button" aria-label="Chiudi">',
       '    <i class="fas fa-xmark" aria-hidden="true"></i>',
       '  </button>',
       '  <div class="article-glossary-popup__term"></div>',
       '  <div class="article-glossary-popup__english"></div>',
       '  <div class="article-glossary-popup__explanation"></div>',
-      '  <button class="article-glossary-popup__add" type="button">Zur Vokabelliste hinzufügen</button>',
+      '  <button class="article-glossary-popup__add" type="button">Aggiungi al vocabolario</button>',
       '</div>',
     ].join("");
     document.body.appendChild(popup);
@@ -73,9 +73,9 @@
         text === configuredHeading ||
         text.startsWith(configuredHeading + " ") ||
         heading.id === configuredHeading ||
-        heading.id === "vokabeln" ||
-        text === "vokabeln" ||
-        text.startsWith("vokabeln ")
+        heading.id === "vocabolario" ||
+        text === "vocabolario" ||
+        text.startsWith("vocabolario ")
       );
     });
 
@@ -201,7 +201,7 @@
     const key = glossaryKey(item.term, locale);
     const selected = selectedTerms.has(key);
     addButton.disabled = false;
-    addButton.textContent = selected ? "Aus Vokabelliste entfernen" : "Zur Vokabelliste hinzufügen";
+    addButton.textContent = selected ? "Rimuovi dal vocabolario" : "Aggiungi al vocabolario";
     addButton.onclick = function () {
       if (selectedTerms.has(key)) {
         removeFromGlossary(pageContent, item, selectedTerms, locale);

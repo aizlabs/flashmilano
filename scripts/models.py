@@ -66,7 +66,7 @@ class SourceMetadata(BaseModel):
 
 
 class BaseArticle(BaseModel):
-    """Native-level German article from ArticleSynthesizer (Step 1)"""
+    """Native-level Italian article from ArticleSynthesizer (Step 1)"""
     title: str = Field(..., min_length=1, max_length=200, description="Article title")
     content: str = Field(..., min_length=100, description="Full article content")
     summary: str = Field(..., min_length=10, max_length=500, description="One-sentence summary")
@@ -122,9 +122,9 @@ class BaseArticle(BaseModel):
 class VocabularyItem(BaseModel):
     """Single vocabulary glossary item."""
 
-    term: str = Field(..., min_length=1, description="German term from the article")
+    term: str = Field(..., min_length=1, description="Italian term from the article")
     english: str = Field(default="", description="English translation")
-    explanation: str = Field(default="", description="German learner-facing explanation")
+    explanation: str = Field(default="", description="Italian learner-facing explanation")
     default_glossary: bool = Field(
         default=False,
         description="Whether this item should appear in the default visible glossary",
@@ -399,7 +399,7 @@ class EmailConfig(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
     from_email: str = Field(
-        default="bot@briefberlin.de",
+        default="bot@flashmilano.it",
         alias="from",
         description="Sender address used for alerts",
     )

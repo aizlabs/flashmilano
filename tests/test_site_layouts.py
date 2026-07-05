@@ -8,9 +8,9 @@ def test_post_layout_does_not_render_audio_voice_label():
     assert "article-audio__player" in layout
     assert "article-audio__waveform" in layout
     assert "article-audio__skip-back" in layout
-    assert "10 Sekunden zurück" in layout
+    assert "10 secondi indietro" in layout
     assert "article-audio__skip-forward" in layout
-    assert "10 Sekunden vor" in layout
+    assert "10 secondi avanti" in layout
     assert 'data-speed="0.5"' in layout
     assert 'data-speed="0.75"' in layout
     assert 'data-speed="1"' in layout
@@ -30,8 +30,8 @@ def test_head_includes_interactive_glossary_script():
 def test_interactive_glossary_reuses_existing_vocabulary_section():
     script = Path("output/assets/js/glossary-popup.js").read_text(encoding="utf-8")
 
-    assert 'heading.id === "vokabeln"' in script
-    assert 'text.startsWith("vokabeln ")' in script
+    assert 'heading.id === "vocabolario"' in script
+    assert 'text.startsWith("vocabolario ")' in script
     assert 'sibling.tagName !== "H2"' in script
 
 
@@ -44,8 +44,8 @@ def test_interactive_glossary_toggles_vocabulary_terms():
     assert "function removeFromGlossary(pageContent, item, selectedTerms, locale)" in script
     assert "setArticleTermSelected(pageContent, item, true)" in script
     assert "setArticleTermSelected(pageContent, item, false)" in script
-    assert "Aus Vokabelliste entfernen" in script
-    assert "Zur Vokabelliste hinzufügen" in script
+    assert "Rimuovi dal vocabolario" in script
+    assert "Aggiungi al vocabolario" in script
     assert "addButton.disabled = false" in script
 
 

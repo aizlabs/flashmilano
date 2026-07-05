@@ -1,26 +1,26 @@
 ---
 permalink: /privacy/
-title: "Privacy Policy"
-excerpt: "How we handle data"
+title: "Informativa sulla privacy"
+excerpt: "Come gestiamo i dati"
 layout: single
 ---
 
-**Zuletzt aktualisiert:** {{ site.time | date: "%d.%m.%Y" }}
+**Ultimo aggiornamento:** {{ site.time | date: "%d.%m.%Y" }}
 
-## Readers
+## Lettori
 
-BriefBerlin is a static site. It does not currently run first-party analytics, active advertising, user accounts, comments, or stored contact forms.
+FlashMilano è un sito statico. Attualmente non usa analytics di prima parte, pubblicità attiva, account utente, commenti o moduli di contatto memorizzati.
 
-Infrastructure providers such as GitHub Pages may process basic technical logs to operate the service.
+I provider di infrastruttura, come il servizio di hosting, possono elaborare log tecnici di base per far funzionare il servizio.
 
-## Manual Source Articles
+## Articoli con fonte manuale
 
-Manual source articles are private project inputs. They are not published as source attribution, committed to the repository, or uploaded as GitHub Actions artifacts.
+Gli articoli con fonte manuale sono input privati del progetto. Non vengono pubblicati come attribuzione della fonte, salvati nel repository o caricati come artifact.
 
-## Cookies
+## Cookie
 
-BriefBerlin does not currently set first-party analytics or advertising cookies. If that changes, this policy should be updated before those services are enabled.
+FlashMilano attualmente non imposta cookie di analytics o pubblicità di prima parte. Se ciò cambiasse, questa informativa andrebbe aggiornata prima di attivare tali servizi.
 
-## Contact
+## Contatti
 
-Operational contact details are not published yet.
+I dettagli di contatto operativi non sono ancora pubblicati.

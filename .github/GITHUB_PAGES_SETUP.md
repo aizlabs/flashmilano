@@ -46,13 +46,13 @@ commits that change `output/**`; use the manual workflow dispatch if you need to
 Use GitHub CLI to list recent and ongoing runs:
 
 ```bash
-gh run list --repo aizlabs/briefberlin --branch main --limit 10
+gh run list --repo aizlabs/flashmilano --branch main --limit 10
 ```
 
 To show only the Pages deploy workflow:
 
 ```bash
-gh run list --repo aizlabs/briefberlin \
+gh run list --repo aizlabs/flashmilano \
   --workflow "Deploy Jekyll Site to GitHub Pages" \
   --branch main \
   --limit 10
@@ -61,44 +61,44 @@ gh run list --repo aizlabs/briefberlin \
 Watch the latest run until it finishes:
 
 ```bash
-gh run watch --repo aizlabs/briefberlin
+gh run watch --repo aizlabs/flashmilano
 ```
 
 Inspect a specific run from the list output:
 
 ```bash
-gh run view RUN_ID --repo aizlabs/briefberlin
+gh run view RUN_ID --repo aizlabs/flashmilano
 ```
 
 For example:
 
 ```bash
-gh run view 28320881500 --repo aizlabs/briefberlin
+gh run view 28320881500 --repo aizlabs/flashmilano
 ```
 
 ## Custom Domain
 
-The production domain is `briefberlin.de`.
+The production domain is `flashmilano.it`.
 
 Repository-side config:
 
-- `output/_config.yml` uses `url: "https://briefberlin.de"`.
-- `output/CNAME` contains `briefberlin.de`.
+- `output/_config.yml` uses `url: "https://flashmilano.it"`.
+- `output/CNAME` contains `flashmilano.it`.
 
 GitHub setup:
 
 1. Open **Settings → Pages**.
-2. Under **Custom domain**, enter `briefberlin.de`.
+2. Under **Custom domain**, enter `flashmilano.it`.
 3. Save and wait for GitHub's DNS check.
 4. Enable **Enforce HTTPS** after the certificate is ready.
 
 DNS setup at the domain provider:
 
-- For the apex domain `briefberlin.de`, add GitHub Pages `A` records:
+- For the apex domain `flashmilano.it`, add GitHub Pages `A` records:
   - `185.199.108.153`
   - `185.199.109.153`
   - `185.199.110.153`
   - `185.199.111.153`
-- If using `www.briefberlin.de`, add a `CNAME` record from `www` to `<github-username>.github.io`.
+- If using `www.flashmilano.it`, add a `CNAME` record from `www` to `<github-username>.github.io`.
 
 Keep the GitHub Pages custom-domain setting, DNS records, `output/CNAME`, and `output/_config.yml` aligned if the domain changes.

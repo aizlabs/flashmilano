@@ -2,8 +2,8 @@
 Article Synthesizer - Step 1 of Two-Step Generation
 
 Synthesizes multiple source articles into one coherent native-level
-German article. No level adjustment - focuses on factual accuracy
-and natural German expression.
+Italian article. No level adjustment - focuses on factual accuracy
+and natural Italian expression.
 """
 
 import logging
@@ -19,14 +19,14 @@ from scripts.models import BaseArticle, SourceArticle, Topic
 class SynthesisResponse(BaseModel):
     """Raw synthesis response structure from the LLM."""
 
-    title: str = Field(..., description="Engaging headline in German")
-    content: str = Field(..., description="Full article in natural German")
-    summary: str = Field(..., description="One sentence summary in German")
+    title: str = Field(..., description="Engaging headline in Italian")
+    content: str = Field(..., description="Full article in natural Italian")
+    summary: str = Field(..., description="One sentence summary in Italian")
     reading_time: int = Field(..., description="Estimated reading time in minutes")
 
 
 class ArticleSynthesizer:
-    """Synthesizes native-level German articles from multiple sources"""
+    """Synthesizes native-level Italian articles from multiple sources"""
 
     def __init__(self, config: AppConfig, logger: logging.Logger):
         self.config = config
@@ -47,9 +47,9 @@ class ArticleSynthesizer:
 
         Returns:
             Base article dict with:
-            - title (German)
-            - content (native-level German, 300-400 words)
-            - summary (German, one sentence)
+            - title (Italian)
+            - content (native-level Italian, 300-400 words)
+            - summary (Italian, one sentence)
             - reading_time (int, estimated minutes)
             - topic (metadata)
             - sources (metadata, list of source names)

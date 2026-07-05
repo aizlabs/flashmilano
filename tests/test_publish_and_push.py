@@ -56,7 +56,7 @@ def test_failed_publish_prevents_git_commit_and_push(monkeypatch):
     assert result == 1
     assert runner.commands == [
         ["git", "status", "--porcelain"],
-        ["uv", "run", "briefberlin-publish-source", "private-input/source-18.txt"],
+        ["uv", "run", "flashmilano-publish-source", "private-input/source-18.txt"],
     ]
     assert runner.capture_output == [True, False]
 
@@ -74,7 +74,7 @@ def test_successful_publish_with_no_post_changes_skips_commit_and_push(monkeypat
     assert result == 0
     assert runner.commands == [
         ["git", "status", "--porcelain"],
-        ["uv", "run", "briefberlin-publish-source", "private-input/source-18.txt"],
+        ["uv", "run", "flashmilano-publish-source", "private-input/source-18.txt"],
         ["git", "status", "--porcelain", "--", "output/_posts"],
     ]
     assert runner.capture_output == [True, False, True]
@@ -107,7 +107,7 @@ def test_successful_publish_stages_posts_commits_and_pushes(monkeypatch):
         [
             "uv",
             "run",
-            "briefberlin-publish-source",
+            "flashmilano-publish-source",
             "private-input/source-18.txt",
             "private-input/source-19.txt",
         ],

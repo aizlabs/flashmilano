@@ -1,4 +1,4 @@
-# BriefBerlin Modularity - Quick Reference
+# FlashMilano Modularity - Quick Reference
 
 Core components remain independently testable. The active workflow is manual private-source generation, with legacy discovery/fetching modules kept for component tests and future reference.
 
@@ -7,8 +7,8 @@ Core components remain independently testable. The active workflow is manual pri
 ### Manual Pipeline
 
 ```bash
-uv run briefberlin-manual private-input/source-1.source.txt
-uv run briefberlin-manual --dry-run private-input/source-1.source.txt
+uv run flashmilano-manual private-input/source-1.source.txt
+uv run flashmilano-manual --dry-run private-input/source-1.source.txt
 ```
 
 **What it does:** Accepts ignored private source text, runs generation and quality checks, and writes reviewed public markdown.
@@ -24,7 +24,7 @@ uv run pytest tests/test_content_generator.py tests/test_integration_two_step.py
 **What it does:** Runs two-step generation:
 
 - `ArticleSynthesizer` creates a source synthesis.
-- `LevelAdapter` adapts that article to A2 or B1 German.
+- `LevelAdapter` adapts that article to A2 or B1 Italian.
 
 **Output:** Adapted article with vocabulary, summary, metadata, and retained base article for regeneration.
 **Config:** `config/base.yaml` -> `generation`, `llm`.
@@ -66,7 +66,7 @@ bundle exec jekyll build
 vim scripts/manual_pipeline.py
 vim scripts/content_generator.py
 vim config/base.yaml
-uv run briefberlin-manual --dry-run private-input/source-1.source.txt
+uv run flashmilano-manual --dry-run private-input/source-1.source.txt
 tail -20 logs/local.log
 ```
 

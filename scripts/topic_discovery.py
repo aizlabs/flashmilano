@@ -27,7 +27,7 @@ from scripts.topic_utils import sanitize_topic_keywords
 
 
 class TopicDiscoverer:
-    """Discovers topics from multiple German sources"""
+    """Discovers topics from multiple Italian sources"""
 
     def __init__(self, config, logger: logging.Logger):
         self.config = config
@@ -199,7 +199,7 @@ class TopicDiscoverer:
         try:
             # Wikipedia API requires a User-Agent header
             headers = {
-                'User-Agent': 'BriefBerlinBot/1.0 (Educational content bot)'
+                'User-Agent': 'FlashMilanoBot/1.0 (Educational content bot)'
             }
             response = requests.get(url, timeout=10, headers=headers)
             response.raise_for_status()
