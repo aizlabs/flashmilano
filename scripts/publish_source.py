@@ -14,7 +14,7 @@ STANDARD_AUDIO_ENV = {
     "AUDIO_PROVIDER": "openai",
     "AUDIO_VOICE": "alloy",
     "AUDIO_FORMAT": "mp3",
-    "AUDIO_PUBLIC_BASE_URL": "https://media.flashmilano.it",
+    "AUDIO_PUBLIC_BASE_URL": "https://flashmilano-audio-prod.s3.eu-central-1.amazonaws.com",
     "AUDIO_S3_BUCKET": "flashmilano-audio-prod",
     "AUDIO_S3_REGION": "eu-central-1",
     "AUDIO_S3_PREFIX": "articles",

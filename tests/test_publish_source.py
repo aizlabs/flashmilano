@@ -18,7 +18,7 @@ def test_apply_audio_defaults_forces_audio_upload(monkeypatch):
     assert os.environ["AUDIO_UPLOAD_ENABLED"] == "true"
     assert os.environ["AUDIO_PROVIDER"] == "openai"
     assert os.environ["AUDIO_VOICE"] == "custom"
-    assert os.environ["AUDIO_PUBLIC_BASE_URL"] == "https://media.flashmilano.it"
+    assert os.environ["AUDIO_PUBLIC_BASE_URL"] == "https://flashmilano-audio-prod.s3.eu-central-1.amazonaws.com"
     assert os.environ["AUDIO_S3_BUCKET"] == "flashmilano-audio-prod"
 
 

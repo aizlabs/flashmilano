@@ -49,7 +49,7 @@ sources:
 - name: "tagesschau.de"
   url: "https://tagesschau.de"
 audio:
-  url: "https://media.flashmilano.it/articles/2026/03/windenergie-a2/article.mp3"
+  url: "https://flashmilano-audio-prod.s3.eu-central-1.amazonaws.com/articles/2026/03/windenergie-a2/article.mp3"
   format: "mp3"
   mime_type: "audio/mpeg"
   provider: "openai"
@@ -173,7 +173,7 @@ def test_parse_jekyll_post_extracts_audio_frontmatter(tmp_path):
 
     post = parse_jekyll_post(post_path)
 
-    assert post.audio_url == "https://media.flashmilano.it/articles/2026/03/windenergie-a2/article.mp3"
+    assert post.audio_url == "https://flashmilano-audio-prod.s3.eu-central-1.amazonaws.com/articles/2026/03/windenergie-a2/article.mp3"
     assert post.audio_mime_type == "audio/mpeg"
     assert post.audio_duration_seconds == 105
 
@@ -325,7 +325,7 @@ def test_publish_posts_sends_audio_when_post_has_audio_url(tmp_path):
     assert len(sent_audio) == 1
     post, article_url = sent_audio[0]
     assert post.title == "Deutschland baut mehr Windenergie aus"
-    assert post.audio_url == "https://media.flashmilano.it/articles/2026/03/windenergie-a2/article.mp3"
+    assert post.audio_url == "https://flashmilano-audio-prod.s3.eu-central-1.amazonaws.com/articles/2026/03/windenergie-a2/article.mp3"
     assert article_url == "https://flashmilano.it/articles/040915-windenergie-a2/"
 
 
@@ -379,7 +379,7 @@ def test_send_telegram_audio_uses_audio_metadata_and_web_button():
         reading_time=2,
         paragraphs=[],
         vocabulary_lines=[],
-        audio_url="https://media.flashmilano.it/articles/2026/03/windenergie-a2/article.mp3",
+        audio_url="https://flashmilano-audio-prod.s3.eu-central-1.amazonaws.com/articles/2026/03/windenergie-a2/article.mp3",
         audio_mime_type="audio/mpeg",
         audio_duration_seconds=105,
     )
@@ -400,7 +400,7 @@ def test_send_telegram_audio_uses_audio_metadata_and_web_button():
     assert captured_payloads == [
         {
             "chat_id": "channel-id",
-            "audio": "https://media.flashmilano.it/articles/2026/03/windenergie-a2/article.mp3",
+            "audio": "https://flashmilano-audio-prod.s3.eu-central-1.amazonaws.com/articles/2026/03/windenergie-a2/article.mp3",
             "title": "Deutschland baut mehr Windenergie aus",
             "performer": "FlashMilano • A2",
             "caption": "<b>Deutschland baut mehr Windenergie aus</b>\n<i>A2 • 2 min</i>",

@@ -48,7 +48,7 @@ def test_audio_env_overrides(monkeypatch):
     monkeypatch.setenv("AUDIO_VOICE", "newsreader")
     monkeypatch.setenv("AUDIO_FORMAT", "mp3")
     monkeypatch.setenv("AUDIO_UPLOAD_ENABLED", "false")
-    monkeypatch.setenv("AUDIO_PUBLIC_BASE_URL", "https://media.flashmilano.it")
+    monkeypatch.setenv("AUDIO_PUBLIC_BASE_URL", "https://flashmilano-audio-prod.s3.eu-central-1.amazonaws.com")
     monkeypatch.setenv("AUDIO_S3_BUCKET", "flashmilano-audio-prod")
     monkeypatch.setenv("AUDIO_S3_REGION", "eu-central-1")
     monkeypatch.setenv("AUDIO_S3_PREFIX", "articles")
@@ -60,7 +60,7 @@ def test_audio_env_overrides(monkeypatch):
         assert config["audio"]["voice"] == "newsreader"
         assert config["audio"]["format"] == "mp3"
         assert config["audio"]["upload_enabled"] is False
-        assert config["audio"]["public_base_url"] == "https://media.flashmilano.it"
+        assert config["audio"]["public_base_url"] == "https://flashmilano-audio-prod.s3.eu-central-1.amazonaws.com"
         assert config["audio"]["s3"]["bucket"] == "flashmilano-audio-prod"
         assert config["audio"]["s3"]["region"] == "eu-central-1"
         assert config["audio"]["s3"]["prefix"] == "articles"

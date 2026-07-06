@@ -5,7 +5,7 @@ level: A2
 topics: ["abitare accessibile", "ecosistema startup", "coliving"]
 sources: []
 audio:
-  url: "https://media.flashmilano.it/articles/2026/07/20260705-153944-case-meno-care-per-nuove-aziende-a-milano-a2/article.mp3"
+  url: "https://flashmilano-audio-prod.s3.eu-central-1.amazonaws.com/articles/2026/07/20260705-153944-case-meno-care-per-nuove-aziende-a-milano-a2/article.mp3"
   format: "mp3"
   mime_type: "audio/mpeg"
   provider: "openai"

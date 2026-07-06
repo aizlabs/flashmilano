@@ -90,7 +90,7 @@ def test_audio_pipeline_uploads_and_sets_public_url_when_upload_enabled(
     base_config.audio.voice = "alloy"
     base_config.audio.upload_enabled = True
     base_config.audio.output_path = str(tmp_path / "audio")
-    base_config.audio.public_base_url = "https://media.flashmilano.it"
+    base_config.audio.public_base_url = "https://flashmilano-audio-prod.s3.eu-central-1.amazonaws.com"
     base_config.audio.s3.bucket = "flashmilano-audio-prod"
 
     mock_tts_client = MagicMock()
@@ -112,7 +112,7 @@ def test_audio_pipeline_uploads_and_sets_public_url_when_upload_enabled(
     assert prepared_article.audio is not None
     assert (
         prepared_article.audio.url
-        == "https://media.flashmilano.it/articles/2024/01/20240102-120000-deutschland-baut-mehr-windenergie-aus-a2/article.mp3"
+        == "https://flashmilano-audio-prod.s3.eu-central-1.amazonaws.com/articles/2024/01/20240102-120000-deutschland-baut-mehr-windenergie-aus-a2/article.mp3"
     )
     assert prepared_article.audio.storage_key == (
         "articles/2024/01/20240102-120000-deutschland-baut-mehr-windenergie-aus-a2/article.mp3"
@@ -166,7 +166,7 @@ def test_audio_pipeline_raises_when_upload_enabled_without_bucket(
     base_config.audio.voice = "alloy"
     base_config.audio.upload_enabled = True
     base_config.audio.output_path = str(tmp_path / "audio")
-    base_config.audio.public_base_url = "https://media.flashmilano.it"
+    base_config.audio.public_base_url = "https://flashmilano-audio-prod.s3.eu-central-1.amazonaws.com"
 
     mock_tts_client = MagicMock()
     mock_tts_client.audio.speech.create.return_value = DummySpeechResponse()

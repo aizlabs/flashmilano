@@ -139,7 +139,7 @@ def test_update_post_audio_writes_audio_frontmatter_only(tmp_path, monkeypatch):
     update_post_audio(
         post_path,
         AudioAsset(
-            url="https://media.flashmilano.it/articles/test/article.mp3",
+            url="https://flashmilano-audio-prod.s3.eu-central-1.amazonaws.com/articles/test/article.mp3",
             format="mp3",
             mime_type="audio/mpeg",
             provider="openai",
@@ -150,6 +150,6 @@ def test_update_post_audio_writes_audio_frontmatter_only(tmp_path, monkeypatch):
     )
 
     updated = post_path.read_text(encoding="utf-8")
-    assert "audio:\n  url: https://media.flashmilano.it/articles/test/article.mp3" in updated
+    assert "audio:\n  url: https://flashmilano-audio-prod.s3.eu-central-1.amazonaws.com/articles/test/article.mp3" in updated
     assert "mime_type: audio/mpeg" in updated
     assert "In Berlin gibt es eine neue Meinung. Eine Umfrage zeigt neue Pläne." in updated

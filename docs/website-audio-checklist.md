@@ -1,7 +1,10 @@
 # Website Audio AWS Runbook
 
-This runbook provisions private S3 storage and CloudFront delivery for website audio at
-`https://media.flashmilano.it/articles/.../article.mp3`.
+This runbook provisions S3-backed website audio at direct public S3 URLs:
+
+```text
+https://flashmilano-audio-prod.s3.eu-central-1.amazonaws.com/articles/.../article.mp3
+```
 
 Audio scripts and generated audio must come only from the public learner article. Never use
 private source text, base article drafts, logs, metrics, prompts, or intermediate private files
@@ -19,7 +22,7 @@ aws sts get-caller-identity
 ```
 
 Confirm the AWS account, CLI profile, and region before making changes. The S3 bucket is in
-`eu-central-1`; ACM for CloudFront must be requested in `us-east-1`.
+`eu-central-1`.
 
 If using a named profile, export it before continuing:
 
@@ -32,30 +35,48 @@ Set the reusable names:
 ```bash
 export AUDIO_BUCKET=flashmilano-audio-prod
 export AUDIO_BUCKET_REGION=eu-central-1
-export AUDIO_DOMAIN=media.flashmilano.it
+export AUDIO_PUBLIC_BASE_URL=https://flashmilano-audio-prod.s3.eu-central-1.amazonaws.com
 export AUDIO_PREFIX=articles
-export CF_CERT_REGION=us-east-1
 ```
 
 ## 2. S3 Bucket
 
-Create or reuse the private bucket:
+Create or reuse the bucket:
 
 ```bash
-aws s3api head-bucket --bucket "$AUDIO_BUCKET" || \
+aws s3api head-bucket --bucket "$AUDIO_BUCKET" --region "$AUDIO_BUCKET_REGION" || \
 aws s3api create-bucket \
   --bucket "$AUDIO_BUCKET" \
   --region "$AUDIO_BUCKET_REGION" \
   --create-bucket-configuration LocationConstraint="$AUDIO_BUCKET_REGION"
 ```
 
-Block public access:
+Block public ACLs but allow the explicit bucket policy below:
 
 ```bash
 aws s3api put-public-access-block \
   --bucket "$AUDIO_BUCKET" \
   --public-access-block-configuration \
-  BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true
+  BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=false,RestrictPublicBuckets=false
+```
+
+Allow public reads only for article audio objects:
+
+```bash
+aws s3api put-bucket-policy \
+  --bucket "$AUDIO_BUCKET" \
+  --policy '{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "PublicReadArticleAudio",
+        "Effect": "Allow",
+        "Principal": "*",
+        "Action": "s3:GetObject",
+        "Resource": "arn:aws:s3:::flashmilano-audio-prod/articles/*"
+      }
+    ]
+  }'
 ```
 
 Enforce bucket-owner ownership:
@@ -89,213 +110,9 @@ aws s3api put-bucket-encryption \
   }'
 ```
 
-## 3. ACM Certificate In us-east-1
+## 3. Local Environment
 
-Find an existing certificate:
-
-```bash
-aws acm list-certificates \
-  --region "$CF_CERT_REGION" \
-  --certificate-statuses ISSUED PENDING_VALIDATION \
-  --query "CertificateSummaryList[?DomainName=='$AUDIO_DOMAIN']"
-```
-
-Request one if needed:
-
-```bash
-export AUDIO_CERT_ARN="$(aws acm request-certificate \
-  --region "$CF_CERT_REGION" \
-  --domain-name "$AUDIO_DOMAIN" \
-  --validation-method DNS \
-  --query CertificateArn \
-  --output text)"
-```
-
-Print the external DNS validation CNAME:
-
-```bash
-aws acm describe-certificate \
-  --region "$CF_CERT_REGION" \
-  --certificate-arn "$AUDIO_CERT_ARN" \
-  --query "Certificate.DomainValidationOptions[].ResourceRecord" \
-  --output table
-```
-
-Add the printed CNAME at the external DNS provider for `flashmilano.it`, then wait until ACM is
-issued:
-
-```bash
-aws acm wait certificate-validated \
-  --region "$CF_CERT_REGION" \
-  --certificate-arn "$AUDIO_CERT_ARN"
-```
-
-## 4. CloudFront OAC
-
-Create an Origin Access Control if one does not already exist:
-
-```bash
-aws cloudfront list-origin-access-controls \
-  --query "OriginAccessControlList.Items[?Name=='flashmilano-audio-oac']"
-```
-
-```bash
-cat > /tmp/flashmilano-audio-oac.json <<'JSON'
-{
-  "Name": "flashmilano-audio-oac",
-  "Description": "FlashMilano private audio S3 origin access",
-  "SigningProtocol": "sigv4",
-  "SigningBehavior": "always",
-  "OriginAccessControlOriginType": "s3"
-}
-JSON
-
-export AUDIO_OAC_ID="$(aws cloudfront create-origin-access-control \
-  --origin-access-control-config file:///tmp/flashmilano-audio-oac.json \
-  --query "OriginAccessControl.Id" \
-  --output text)"
-```
-
-## 5. CloudFront Distribution
-
-Create or reuse a distribution with:
-
-- Alias: `media.flashmilano.it`
-- Origin: `flashmilano-audio-prod.s3.eu-central-1.amazonaws.com`
-- Viewer protocol policy: redirect HTTP to HTTPS
-- Certificate: ACM certificate for `media.flashmilano.it` in `us-east-1`
-- OAC: `flashmilano-audio-oac`
-
-Create config in `/tmp`:
-
-```bash
-export AUDIO_ACCOUNT_ID="$(aws sts get-caller-identity --query Account --output text)"
-export AUDIO_ORIGIN_ID="flashmilano-audio-prod-s3"
-
-cat > /tmp/flashmilano-audio-distribution.json <<JSON
-{
-  "CallerReference": "flashmilano-audio-$(date +%Y%m%d%H%M%S)",
-  "Comment": "FlashMilano private website audio",
-  "Enabled": true,
-  "Aliases": {
-    "Quantity": 1,
-    "Items": [
-      "$AUDIO_DOMAIN"
-    ]
-  },
-  "Origins": {
-    "Quantity": 1,
-    "Items": [
-      {
-        "Id": "$AUDIO_ORIGIN_ID",
-        "DomainName": "$AUDIO_BUCKET.s3.$AUDIO_BUCKET_REGION.amazonaws.com",
-        "OriginAccessControlId": "$AUDIO_OAC_ID",
-        "S3OriginConfig": {
-          "OriginAccessIdentity": ""
-        }
-      }
-    ]
-  },
-  "DefaultCacheBehavior": {
-    "TargetOriginId": "$AUDIO_ORIGIN_ID",
-    "ViewerProtocolPolicy": "redirect-to-https",
-    "AllowedMethods": {
-      "Quantity": 2,
-      "Items": [
-        "GET",
-        "HEAD"
-      ],
-      "CachedMethods": {
-        "Quantity": 2,
-        "Items": [
-          "GET",
-          "HEAD"
-        ]
-      }
-    },
-    "Compress": false,
-    "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
-    "TrustedSigners": {
-      "Enabled": false,
-      "Quantity": 0
-    },
-    "TrustedKeyGroups": {
-      "Enabled": false,
-      "Quantity": 0
-    }
-  },
-  "ViewerCertificate": {
-    "ACMCertificateArn": "$AUDIO_CERT_ARN",
-    "SSLSupportMethod": "sni-only",
-    "MinimumProtocolVersion": "TLSv1.2_2021",
-    "Certificate": "$AUDIO_CERT_ARN",
-    "CertificateSource": "acm"
-  },
-  "DefaultRootObject": "",
-  "PriceClass": "PriceClass_100",
-  "HttpVersion": "http2",
-  "IsIPV6Enabled": true
-}
-JSON
-
-aws cloudfront create-distribution \
-  --distribution-config file:///tmp/flashmilano-audio-distribution.json
-```
-
-Record the returned distribution ID, ARN, and domain name, for example
-`d123abc.cloudfront.net`.
-
-## 6. Restrictive S3 Bucket Policy
-
-Allow reads only from the CloudFront distribution ARN:
-
-```bash
-export AUDIO_DISTRIBUTION_ID=E123EXAMPLE
-export AUDIO_DISTRIBUTION_ARN="arn:aws:cloudfront::$AUDIO_ACCOUNT_ID:distribution/$AUDIO_DISTRIBUTION_ID"
-
-cat > /tmp/flashmilano-audio-bucket-policy.json <<JSON
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "AllowCloudFrontServicePrincipalReadOnly",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "cloudfront.amazonaws.com"
-      },
-      "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::$AUDIO_BUCKET/$AUDIO_PREFIX/*",
-      "Condition": {
-        "StringEquals": {
-          "AWS:SourceArn": "$AUDIO_DISTRIBUTION_ARN"
-        }
-      }
-    }
-  ]
-}
-JSON
-
-aws s3api put-bucket-policy \
-  --bucket "$AUDIO_BUCKET" \
-  --policy file:///tmp/flashmilano-audio-bucket-policy.json
-```
-
-## 7. External DNS Handoff
-
-After the CloudFront distribution is deployed, add this CNAME at the external DNS provider:
-
-```text
-Name:  media.flashmilano.it
-Type:  CNAME
-Value: <cloudfront-distribution-domain-name>
-```
-
-Do not create this final CNAME until CloudFront has the `media.flashmilano.it` alias and the ACM
-certificate is issued.
-
-## 8. Local Environment
-
-Use these local `.env` values when audio delivery is ready:
+Use these local `.env` values for website-ready audio:
 
 ```bash
 AUDIO_ENABLED=true
@@ -303,7 +120,7 @@ AUDIO_UPLOAD_ENABLED=true
 AUDIO_PROVIDER=openai
 AUDIO_VOICE=alloy
 AUDIO_FORMAT=mp3
-AUDIO_PUBLIC_BASE_URL=https://media.flashmilano.it
+AUDIO_PUBLIC_BASE_URL=https://flashmilano-audio-prod.s3.eu-central-1.amazonaws.com
 AUDIO_S3_BUCKET=flashmilano-audio-prod
 AUDIO_S3_REGION=eu-central-1
 AUDIO_S3_PREFIX=articles
@@ -334,8 +151,7 @@ Local audio generation requires `OPENAI_API_KEY`. The command above creates loca
 audio URL can be built. For website-ready audio during the same run, use the `.env` values above,
 including `AUDIO_UPLOAD_ENABLED=true`.
 
-To backfill or regenerate audio for an existing public post, use the same `AudioPipeline` through
-the post-audio command:
+To backfill or regenerate audio for an existing public post, use the post-audio command:
 
 ```bash
 uv run flashmilano-audio-post output/_posts/YYYY-MM-DD-HHMMSS-slug-level.md \
@@ -343,7 +159,7 @@ uv run flashmilano-audio-post output/_posts/YYYY-MM-DD-HHMMSS-slug-level.md \
   --provider openai \
   --voice alloy \
   --format mp3 \
-  --public-base-url https://media.flashmilano.it \
+  --public-base-url https://flashmilano-audio-prod.s3.eu-central-1.amazonaws.com \
   --s3-bucket flashmilano-audio-prod \
   --s3-region eu-central-1 \
   --s3-prefix articles
@@ -353,28 +169,29 @@ This command accepts only public posts under `output/_posts`, derives the narrat
 public learner article body, writes local working files under `output/audio`, uploads to S3 when
 `--upload` is set, and updates only the post's public audio front matter.
 
-## 9. Verification
+## 4. Verification
 
 Verify bucket settings:
 
 ```bash
 aws s3api get-public-access-block --bucket "$AUDIO_BUCKET"
+aws s3api get-bucket-policy-status --bucket "$AUDIO_BUCKET"
 aws s3api get-bucket-ownership-controls --bucket "$AUDIO_BUCKET"
 aws s3api get-bucket-encryption --bucket "$AUDIO_BUCKET"
 aws s3 ls "s3://$AUDIO_BUCKET/$AUDIO_PREFIX/"
 ```
 
-Verify CloudFront:
+After uploading an article audio file, verify delivery:
 
 ```bash
-aws cloudfront get-distribution --id "$AUDIO_DISTRIBUTION_ID" \
-  --query "Distribution.{Status:Status,DomainName:DomainName,Aliases:DistributionConfig.Aliases.Items}"
+curl -sS -o /dev/null -w "HTTP %{http_code} (%{content_type})\n" \
+  "$AUDIO_PUBLIC_BASE_URL/articles/YYYY/MM/article-slug/article.mp3"
 ```
 
-After uploading an article audio file and adding DNS, verify delivery:
+Expected: `HTTP 200 (audio/mpeg)`.
 
-```bash
-curl -I "https://media.flashmilano.it/articles/YYYY/MM/article-slug/article.mp3"
-```
+## 5. Future CDN Option
 
-Expected: HTTPS response from CloudFront with an audio content type such as `audio/mpeg`.
+CloudFront can be added later for lower latency and a custom media domain. If that happens, keep
+the same S3 bucket and object keys, create a CloudFront distribution in front of the bucket, then
+change `AUDIO_PUBLIC_BASE_URL` and existing post front matter to the new CDN base URL.
